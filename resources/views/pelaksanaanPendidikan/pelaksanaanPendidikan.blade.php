@@ -43,7 +43,7 @@
                   <!-- <input type="text" name="table_search" class="form-control pull-right" placeholder="Search"> -->
 
                   <div class="button pull-right">
-                    <button type="submit" class="btn btn-primary btn-sm" onclick="tambahPelaksanaanPendidikan()"><i class="fa fa-plus"></i> Tambah Pelaksanaan Pendidikan</button>
+                    <button type="submit" class="btn btn-primary btn-sm" onclick="tambahPelaksanaanPendidikan()"><i class="fa fa-plus"></i> Tambah </button>
                   </div>
                 </div>
               </div>
@@ -68,7 +68,7 @@
                     <td class="text-center">{{ $value['jumlah_sks'] }} </td>
                     <td class="text-center">{!! $value['angka_kredit'] !!}</td>
                     <td class="text-center">{!! $value['periode'] !!}</td>
-                    <td><a href="{{ url('assets/bukti_fisik/').'/'.$value['bukti_fisik'] }}" target="_blank">{!! $value['bukti_fisik'] !!}</a> </td>
+                    <td><a href="{{ url('assets/bukti_fisik/').'/'.$value['bukti_fisik'] }}" target="_blank">{!! $value['bukti_fisik_desc'] !!}</a> </td>
                     <td><button class="btn btn-sm btn-info" onclick="edit({{$value['id_pelaksanaan_pendidikan']}})"><i class="fa fa-pencil"></i> Edit</button> <button class="btn btn-sm btn-danger" onclick="ButtonDelete({{ $value['id_pelaksanaan_pendidikan'] }})"><i class="fa fa-trash"></i> Delete</button></td>
                   </tr>
 

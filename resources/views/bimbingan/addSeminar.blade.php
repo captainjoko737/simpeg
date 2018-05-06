@@ -63,9 +63,9 @@
                 </div>
 
                 <div class="form-group has-feedback">
-                      <label>Bukti Fisik</label>
-                      {!! Form::file('file', array('required' => 'required')) !!}
-                    </div>
+                  <label>Bukti Fisik</label>
+                  {!! Form::file('file', array('required' => 'required', 'accept' => 'application/pdf')) !!}
+                </div>
                 
                 <div class="row">
                   <div class="col-xs-4">

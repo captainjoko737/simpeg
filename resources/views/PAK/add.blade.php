@@ -8,7 +8,7 @@
         <!-- <small>Control panel</small> -->
       </h1>
       <ol class="breadcrumb">
-        <li class="active"><a href="#"><i class="fa fa-chain"></i> Bimbingan KKP</a></li>
+        <li class="active"><a href="#"><i class="fa fa-chain"></i> Kegiatan Mahasiswa</a></li>
       </ol>
     </section>
 
@@ -25,7 +25,7 @@
 
             {!! csrf_field() !!}
             
-            {!! Form::open(array('route' => 'postBimbinganKkp','files'=>true)) !!}
+            {!! Form::open(array('route' => 'postBahanPengajaran','files'=>true)) !!}
             <div class="box-body">
 
                 <div class="form-group hide">
@@ -34,32 +34,23 @@
                 </div>
 
                 <div class="form-group">
-                  <label>Nama Bimbingan</label>
-                  <input type="text" class="form-control" required id="nama_bimbingan" name="nama_bimbingan" placeholder="Masukkan Nama Bimbingan" value="">
+                  <label>Nama Kegiatan Mahasiswa</label>
+                  <input type="text" class="form-control" required id="nama" name="nama" placeholder="Masukkan Nama Bahan Pengajaran" value="">
                 </div>
 
                 <div class="form-group">
-                  <label>Periode</label>
-                  <select class="form-control" id="periode" name="periode" required>
-                    @foreach ($periode as $key => $value)
-                        <option value="{{ $value->id_periode }}"> {{ $value->tahun }} </option>
-                    @endforeach
-                    
-                    
-                  </select>
-                </div>
-
-                <div class="form-group">
-                  <label>Semester</label>
-                  <select class="form-control" id="semester" name="semester">
-                    <option value="0">Genap</option>
-                    <option value="1">Ganjil</option>
-                  </select>
+                  <label>Tahun</label>
+                  <input type="text" class="form-control" required id="tahun" name="tahun" placeholder="Masukkan Tahun Bahan Pengajaran" value="">
                 </div>
 
                 <div class="form-group">
                   <label>Volume Kegiatan</label>
-                  <input type="text" class="form-control" required id="jumlah_sks" name="jumlah_sks" placeholder="Masukkan Jumlah SKS" value="">
+                  <input type="text" class="form-control" required id="volume_kegiatan" name="volume_kegiatan" placeholder="Masukkan Volume Kegiatan" value="">
+                </div>
+
+                <div class="form-group">
+                  <label>Bukti Fisik Deskripsi</label>
+                  <input type="text" class="form-control" required id="bukti_fisik_desc" name="bukti_fisik_desc" placeholder="Masukkan Bukti Fisik Deskripsi" value="">
                 </div>
 
                 <div class="form-group has-feedback">

@@ -8,7 +8,7 @@
         <!-- <small>Control panel</small> -->
       </h1>
       <ol class="breadcrumb">
-        <li class="active"><a href="#"><i class="fa fa-chain"></i> Pengabdian</a></li>
+        <li class="active"><a href="#"><i class="fa fa-chain"></i> Kegiatan Mahasiswa</a></li>
       </ol>
     </section>
 
@@ -25,51 +25,45 @@
 
             {!! csrf_field() !!}
             
-            {!! Form::open(array('route' => 'putPelaksanaanPendidikan','files'=>true, 'method' => 'PUT')) !!}
-            <div class="box-body">  
+            {!! Form::open(array('route' => 'postKegiatan','files'=>true)) !!}
+            <div class="box-body">
 
                 <div class="form-group hide">
                   <label>id</label>
                   <input type="text" class="form-control" required id="id_user" name="id_user" value="{{ $id_user }}">
                 </div>
 
-                <div class="form-group hide">
-                  <label>id pelaksanaan pendidikan</label>
-                  <input type="text" class="form-control" required id="id_pelaksanaan_pendidikan" name="id_pelaksanaan_pendidikan" value="{{ $result['id_pelaksanaan_pendidikan'] }}">
+                <div class="form-group">
+                  <label>Nama Kegiatan Mahasiswa</label>
+                  <input type="text" class="form-control" required id="nama" name="nama" placeholder="Masukkan Nama Kegiatan Mahasiswa" value="">
                 </div>
 
                 <div class="form-group">
-                  <label>Nama Pelaksanaan</label>
-                  <input type="text" class="form-control" required id="nama_pelaksanaan" name="nama_pelaksanaan" placeholder="Masukkan Nama Pelaksanaan" value="{{ $result['nama_pelaksanaan'] }}">
+                  <label>Periode</label>
+                  <select class="form-control" id="periode" name="periode" required>
+                    @foreach ($periode as $key => $value)
+                        <option value="{{ $value->id_periode }}"> {{ $value->tahun }} </option>
+                    @endforeach
+                  </select>
                 </div>
 
                 <div class="form-group">
                   <label>Semester</label>
-                  <select class="form-control" id="semester" name="semester">
+                  <select class="form-control" id="semester" name="semester" required>
                     <option value="0">Genap</option>
                     <option value="1">Ganjil</option>
                   </select>
                 </div>
 
                 <div class="form-group">
-                  <label>Jumlah SKS</label>
-                  <input type="text" class="form-control" required id="jumlah_sks" name="jumlah_sks" placeholder="Masukkan Jumlah SKS" value="{{ $result['jumlah_sks'] }}">
-                </div>
-
-                <div class="form-group">
-                  <label>Periode</label>
-                  <input type="text" class="form-control" required id="periode" name="periode" placeholder="Masukkan Periode" value="{{ $result['periode'] }}">
-                </div>
-
-                <div class="form-group">
-                  <label>Deskripsi Bukti Fisik</label>
-                  <input type="text" class="form-control" required id="bukti_fisik_desc" name="bukti_fisik_desc" placeholder="Masukkan Deskripsi Bukti Fisik" value="{{ $result['bukti_fisik_desc'] }}">
+                  <label>Bukti Fisik Deskripsi</label>
+                  <input type="text" class="form-control" required id="bukti_fisik_desc" name="bukti_fisik_desc" placeholder="Masukkan Bukti Fisik Deskripsi" value="">
                 </div>
 
                 <div class="form-group has-feedback">
-                      <label>Bukti Fisik</label>
-                      {!! Form::file('file') !!}
-                    </div>
+                  <label>Bukti Fisik</label>
+                  {!! Form::file('file', array('required' => 'required', 'accept' => 'application/pdf')) !!}
+                </div>
                 
                 <div class="row">
                   <div class="col-xs-4">
@@ -90,6 +84,11 @@
 @endsection
 
 @section('js')
+
+<script type="text/javascript">
+
+
+</script>
 
 @endsection
 

@@ -30,20 +30,6 @@
 
         <li class="treeview {{ $user['menu_dosen'] }}">
           <a href="#">
-            <i class="fa fa-book"></i> <span>Bimbingan</span>
-            <span class="pull-right-container">
-              <i class="fa fa-angle-left pull-right"></i>
-            </span>
-          </a>
-          <ul class="treeview-menu">
-            <li><a href="{{ url('/bimbingan/seminar') }}"><i class="fa fa-circle-o"></i> Bimbingan Seminar</a></li>
-            <li><a href="{{ url('/bimbingan/kkp') }}"><i class="fa fa-circle-o"></i> Bimbingan KKP</a></li>
-            <li><a href="{{ url('/bimbingan/laporanAkhir') }}"><i class="fa fa-circle-o"></i> Bimbingan Laporan Akhir</a></li>
-          </ul>
-        </li>
-
-        <li class="treeview {{ $user['menu_dosen'] }}">
-          <a href="#">
             <i class="fa fa-mortar-board"></i> <span>Kualifikasi</span>
             <span class="pull-right-container">
               <i class="fa fa-angle-left pull-right"></i>
@@ -93,6 +79,8 @@
           </ul>
         </li>
 
+        <li class="active {{ $user['is_admin'] }}"><a href="{{ url('/PAK') }}"><i class="fa fa-book"></i> Layanan PAK</a></li>
+
         <li class="treeview {{ $user['menu_dosen'] }}">
           <a href="#">
             <i class="fa  fa-indent"></i> <span>Pelaks.Pendidikan</span>
@@ -101,7 +89,15 @@
             </span>
           </a>
           <ul class="treeview-menu">
-            <li class="active"><a href="{{ url('/pelaksanaan/pendidikan') }}"><i class="fa fa-circle-o"></i> Pelaks. Pendidikan</a></li>
+            <li><a href="{{ url('/pelaksanaan/pendidikan') }}"><i class="fa fa-circle-o"></i> Pelaks. Pendidikan</a></li>
+            <li><a href="{{ url('/bimbingan/seminar') }}"><i class="fa fa-circle-o"></i> Bimbingan Seminar</a></li>
+            <li><a href="{{ url('/bimbingan/kkp') }}"><i class="fa fa-circle-o"></i> Bimbingan KKP</a></li>
+            <li><a href="{{ url('/bimbingan/laporanAkhir') }}"><i class="fa fa-circle-o"></i> Bimbingan Laporan Akhir</a></li>
+            <li><a href="{{ url('/pengujian') }}"><i class="fa fa-circle-o"></i> Pengujian Mahasiswa</a></li>
+
+            <li><a href="{{ url('/kegiatan/mahasiswa') }}"><i class="fa fa-circle-o"></i> Kegiatan Mahasiswa</a></li>
+            <li><a href="{{ url('/program/kuliah') }}"><i class="fa fa-circle-o"></i> Program Kuliah</a></li>
+            <li><a href="{{ url('/bahan/pengajaran') }}"><i class="fa fa-circle-o"></i> Bahan Pengajaran</a></li>
           </ul>
         </li>
 

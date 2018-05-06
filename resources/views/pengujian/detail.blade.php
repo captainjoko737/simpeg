@@ -8,7 +8,7 @@
         <!-- <small>Control panel</small> -->
       </h1>
       <ol class="breadcrumb">
-        <li class="active"><a href="#"><i class="fa fa-archive"></i> Detail Bimbingan Akhir</a></li>
+        <li class="active"><a href="#"><i class="fa fa-archive"></i> Detail Penguji Ujian Akhir</a></li>
       </ol>
     </section>
 
@@ -50,13 +50,11 @@
             <div class="box-body table-responsive no-padding">
               <table class="table table-bordered table-striped">
                 <tr>
-                  <th>Nama Bimbingan</th>
                   <th class="text-center">Periode</th>
                   <th class="text-center">Semester</th>
                 </tr>
 
                 <tr>
-                  <td>{{ $result->jenis_bimbingan }}</td>
                   <td class="text-center">{{ $result->tahun }}</td>
                   <td class="text-center">{{ $result->semester }}</td>
                 </tr>
@@ -131,7 +129,7 @@
                     <td>{{ $value->nim_mahasiswa }}</td>
                     <td class="text-center">{{ $value->nama_mahasiswa }}</td>
                     <td class="text-center"><a href="{{ url('assets/bukti_fisik/').'/'.$value->bukti_fisik }}" target="_blank">{{ $value->bukti_fisik_desc }}</a></td>
-                    <td class="text-center"><button class="btn btn-sm btn-info" onclick="edit({{ $value->id_mahasiswa_bimbingan }})"><i class="fa fa-pencil"></i> Edit</button> <button class="btn btn-sm btn-danger" onclick="ButtonDelete({{ $value->id_mahasiswa_bimbingan }})"><i class="fa fa-trash"></i> Delete</button></td></td>
+                    <td class="text-center"><button class="btn btn-sm btn-info" onclick="edit({{ $value->id_mahasiswa_ujian_akhir }})"><i class="fa fa-pencil"></i> Edit</button> <button class="btn btn-sm btn-danger" onclick="ButtonDelete({{ $value->id_mahasiswa_ujian_akhir }})"><i class="fa fa-trash"></i> Delete</button></td></td>
                   </tr>
 
                 @endforeach
@@ -158,12 +156,12 @@
 <script type="text/javascript">
 
   function add(id) {
-      location.href='/bimbingan/laporanAkhir/addDetail/' + id;
+      location.href='/pengujian/detail/add/' + id;
   }
 
   function edit(id) {
       console.log('EDIT ', id);
-      location.href='/bimbingan/laporanAkhir/editDetail/'+id;
+      location.href='/pengujian/detail/edit/'+id;
   }
 
   function detail(id_penelitian) {
@@ -173,7 +171,7 @@
   }
 
   function back() {
-    location.href='/bimbingan/laporanAkhir';
+    location.href='/pengujian';
   }
 
   var _token = $('input[name="_token"]').val();
@@ -209,12 +207,12 @@
         console.log('INI AKAN DI HAPUS : ', selectedID);
 
         var data = {
-                "id_mahasiswa_bimbingan" : selectedID,
+                "id_mahasiswa_ujian_akhir" : selectedID,
                 "_token" : _token};
 
           $.ajax({
              type: 'delete',
-             url: '{{url("/bimbingan/laporanAkhirDetail/delete")}}',
+             url: '{{url("/pengujian/detail/delete")}}',
              data: data,
              success: function(data) {
 

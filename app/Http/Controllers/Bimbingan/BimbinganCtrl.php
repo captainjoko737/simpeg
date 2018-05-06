@@ -358,7 +358,12 @@ class BimbinganCtrl extends Controller {
               
               ->count();
 
-            $result[$key]->angka_kredit = $countMahasiswa;
+            if ($value->jenis_bimbingan == 'Pembimbing Utama') {
+                $result[$key]->angka_kredit = $countMahasiswa;
+            }else{
+                $result[$key]->angka_kredit = $countMahasiswa / 2;
+            }
+            
         }
 
         $data['result'] = $result;
@@ -393,9 +398,12 @@ class BimbinganCtrl extends Controller {
 
         $data['result'] = $result[0];
         $data['mahasiswa'] = $mahasiswa;
+        $data['id'] = $id_bimbingan_laporan_akhir;
 
         // return $data;
 
+        // session()->flash('message', 'Data Berhasil dibuat');
+        // return redirect('/bimbingan/laporanAkhir');
 
         return view('bimbingan.detailLaporanAkhir', $data);
    }
@@ -427,13 +435,16 @@ class BimbinganCtrl extends Controller {
       ->where('semester', '=', $request->semester)
       ->get();
 
+      // return $result;
+
       if ($result == []) {
           $save = DB::table('bimbingan_laporan_akhir')->insert(
                     [
                         'id_user' => $request->id_user, 
                         'periode' => $request->periode,
                         'jenis_bimbingan' => $request->jenis_bimbingan,
-                        'semester' => $request->semester
+                        'semester' => $request->semester,
+                        'status' => $request->status
                     ]
                 );
           if ($save) {
@@ -491,7 +502,8 @@ class BimbinganCtrl extends Controller {
                                 'id_user' => $request->id_user, 
                                 'periode' => $request->periode,
                                 'jenis_bimbingan' => $request->jenis_bimbingan,
-                                'semester' => $request->semester
+                                'semester' => $request->semester,
+                                'status' => $request->status
                             ]);
 
             if ($save) {
@@ -514,7 +526,7 @@ class BimbinganCtrl extends Controller {
 
     }
 
-    public function addLaporanAkhirDetail() {
+    public function addLaporanAkhirDetail($id_bimbingan_laporanAkhir) {
 
         $data['title'] = 'Tambah Mahasiswa Bimbingan Laporan Akhir';
 
@@ -530,37 +542,111 @@ class BimbinganCtrl extends Controller {
         
         $data['periode'] = $periode;
 
-        return view('bimbingan.addLaporanAkhirDetail', $data);
+        $result = DB::table('mahasiswa_bimbingan')
+        ->where('id_bimbingan_laporan_akhir', '=', $id_bimbingan_laporanAkhir)
+        ->count();
+
+        if ($result < 8) {
+            $data['id'] = $id_bimbingan_laporanAkhir;
+            return view('bimbingan.addLaporanAkhirDetail', $data);
+        }else{
+            session()->flash('warning', 'Mahasiswa Bimbingan tidak bisa lebih dari 8');
+            return redirect('/bimbingan/laporanAkhir/detail/'.$id_bimbingan_laporanAkhir.'');
+        }
+
     }
 
     public function CreateLaporanAkhirDetail(request $request) {
+        $fileName = time().'.'.$request->file->getClientOriginalExtension();
+        $request['bukti_fisik']    = $fileName;
 
-      $result = DB::table('bimbingan_laporan_akhir')
-      ->where('periode', '=', $request->periode)
-      ->where('jenis_bimbingan', '=', $request->jenis_bimbingan)
-      ->where('semester', '=', $request->semester)
-      ->get();
-
-      if ($result == []) {
-          $save = DB::table('bimbingan_laporan_akhir')->insert(
+        $save = DB::table('mahasiswa_bimbingan')->insert(
                     [
-                        'id_user' => $request->id_user, 
-                        'periode' => $request->periode,
-                        'jenis_bimbingan' => $request->jenis_bimbingan,
-                        'semester' => $request->semester
+                        'id_bimbingan_laporan_akhir' => $request->id_bimbingan_laporan_akhir, 
+                        'nim_mahasiswa' => $request->nim_mahasiswa,
+                        'nama_mahasiswa' => $request->nama_mahasiswa,
+                        'bukti_fisik_desc' => $request->bukti_fisik_desc,
+                        'bukti_fisik' => $request->bukti_fisik
                     ]
                 );
-          if ($save) {
+        if ($save) {
+            if ($request->file) {
+                $request->file->move(base_path().'/public/assets/bukti_fisik/', $fileName);
+            }
             session()->flash('message', 'Data Berhasil dibuat');
-            return redirect('/bimbingan/laporanAkhir');
-          }else{
+            return redirect('/bimbingan/laporanAkhir/detail/'.$request->id_bimbingan_laporan_akhir.'');
+        }else{
             session()->flash('error', 'Terjadi Kesalahan');
-            return redirect('/bimbingan/laporanAkhir');
-          }
-      }else{
-          session()->flash('error', 'Jenis Bimbingan, Periode dan Semester Sudah dibuat');
-          return redirect('/bimbingan/laporanAkhir');
-      }
+            return redirect('/bimbingan/laporanAkhir/detail/'.$request->id_bimbingan_laporan_akhir.'');
+        }
+
+    }
+
+    public function editLaporanAkhirDetail($id_mahasiswa_bimbingan) {
+
+        $data['title'] = 'Edit Mahasiswa Bimbingan Laporan Akhir';
+
+        $user = (new UserChecker)->checkUser(Auth::user());
+        $data['user'] = $user;
+
+        $id_user = Auth::user()->id_user;
+        
+        $result = DB::table('mahasiswa_bimbingan')
+        ->where('id_mahasiswa_bimbingan', '=', $id_mahasiswa_bimbingan)
+        ->get();
+
+        $periode = DB::table('periode')
+        ->get();
+        
+        $data['periode'] = $periode;
+
+        $data['result'] = $result[0];
+
+        return view('bimbingan.editLaporanAkhirDetail', $data);
+    }
+
+    public function saveLaporanAkhirDetail(request $request) {
+
+        if ($request->file) {
+            $request->file->move(base_path().'/public/assets/bukti_fisik/', $fileName);
+            $fileName = time().'.'.$request->file->getClientOriginalExtension();
+            $request['bukti_fisik']    = $fileName;
+
+            $save = DB::table('mahasiswa_bimbingan')
+                            ->where('id_mahasiswa_bimbingan', $request->id_mahasiswa_bimbingan)
+                            ->update([
+                                'nim_mahasiswa' => $request->nim_mahasiswa,
+                                'nama_mahasiswa' => $request->nama_mahasiswa,
+                                'bukti_fisik_desc' => $request->bukti_fisik_desc,
+                                'bukti_fisik' => $request->bukti_fisik
+
+                            ]);
+
+        }else{
+            $save = DB::table('mahasiswa_bimbingan')
+                            ->where('id_mahasiswa_bimbingan', $request->id_mahasiswa_bimbingan)
+                            ->update([
+                                'nim_mahasiswa' => $request->nim_mahasiswa,
+                                'nama_mahasiswa' => $request->nama_mahasiswa,
+                                'bukti_fisik_desc' => $request->bukti_fisik_desc
+
+                            ]);
+        }
+        
+        if ($save) {
+            session()->flash('message', 'Data Berhasil diubah');
+            return redirect('/bimbingan/laporanAkhir/detail/'.$request->id_bimbingan_laporan_akhir.'');
+        }else{
+            session()->flash('error', 'Terjadi Kesalahan');
+            return redirect('/bimbingan/laporanAkhir/detail/'.$request->id_bimbingan_laporan_akhir.'');
+        }
+
+    }
+
+    public function deleteLaporanAkhirDetail(request $request) {
+
+        $success = DB::table('mahasiswa_bimbingan')
+            ->where('id_mahasiswa_bimbingan', '=', $request->id_mahasiswa_bimbingan)->delete();
 
     }
 

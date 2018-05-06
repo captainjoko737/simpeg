@@ -43,7 +43,7 @@
                   <!-- <input type="text" name="table_search" class="form-control pull-right" placeholder="Search"> -->
 
                   <div class="button pull-right">
-                    <button type="submit" class="btn btn-primary btn-sm" onclick="add()"><i class="fa fa-plus"></i> Tambah {{ $title }}</button>
+                    <button type="submit" class="btn btn-primary btn-sm" onclick="add()"><i class="fa fa-plus"></i> Tambah</button>
                   </div>
                 </div>
               </div>

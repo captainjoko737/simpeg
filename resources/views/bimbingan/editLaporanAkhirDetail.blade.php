@@ -8,7 +8,7 @@
         <!-- <small>Control panel</small> -->
       </h1>
       <ol class="breadcrumb">
-        <li class="active"><a href="#"><i class="fa fa-chain"></i> Bimbingan KKP</a></li>
+        <li class="active"><a href="#"><i class="fa fa-book"></i> Bimbingan</a></li>
       </ol>
     </section>
 
@@ -25,46 +25,37 @@
 
             {!! csrf_field() !!}
             
-            {!! Form::open(array('route' => 'postBimbinganKkp','files'=>true)) !!}
-            <div class="box-body">
+            {!! Form::open(array('route' => 'putBimbinganLaporanAkhirDetail','files'=>true, 'method' => 'PUT')) !!}
+            <div class="box-body">  
 
-                <div class="form-group hide">
+                <div class="form-group" hidden>
                   <label>id</label>
-                  <input type="text" class="form-control" required id="id_user" name="id_user" value="{{ $id_user }}">
+                  <input type="text" class="form-control" required id="id_bimbingan_laporan_akhir" name="id_bimbingan_laporan_akhir" value="{{ $result->id_bimbingan_laporan_akhir }}">
+                </div>
+                
+                <div class="form-group" hidden>
+                  <label>id</label>
+                  <input type="text" class="form-control" required id="id_mahasiswa_bimbingan" name="id_mahasiswa_bimbingan" value="{{ $result->id_mahasiswa_bimbingan }}">
                 </div>
 
                 <div class="form-group">
-                  <label>Nama Bimbingan</label>
-                  <input type="text" class="form-control" required id="nama_bimbingan" name="nama_bimbingan" placeholder="Masukkan Nama Bimbingan" value="">
+                  <label>NIM Mahasiswa</label>
+                  <input type="text" class="form-control" required id="nim_mahasiswa" name="nim_mahasiswa" placeholder="Masukkan NIM Mahasiswa" value="{{ $result->nim_mahasiswa }}">
                 </div>
 
                 <div class="form-group">
-                  <label>Periode</label>
-                  <select class="form-control" id="periode" name="periode" required>
-                    @foreach ($periode as $key => $value)
-                        <option value="{{ $value->id_periode }}"> {{ $value->tahun }} </option>
-                    @endforeach
-                    
-                    
-                  </select>
+                  <label>Nama Mahasiswa</label>
+                  <input type="text" class="form-control" required id="nama_mahasiswa" name="nama_mahasiswa" placeholder="Masukkan Nama Mahasiswa" value="{{ $result->nama_mahasiswa }}">
                 </div>
 
                 <div class="form-group">
-                  <label>Semester</label>
-                  <select class="form-control" id="semester" name="semester">
-                    <option value="0">Genap</option>
-                    <option value="1">Ganjil</option>
-                  </select>
-                </div>
-
-                <div class="form-group">
-                  <label>Volume Kegiatan</label>
-                  <input type="text" class="form-control" required id="jumlah_sks" name="jumlah_sks" placeholder="Masukkan Jumlah SKS" value="">
+                  <label>Bukti Fisik Deskripsi</label>
+                  <input type="text" class="form-control" required id="bukti_fisik_desc" name="bukti_fisik_desc" placeholder="Masukkan Bukti Fisik Deskripsi" value="{{ $result->bukti_fisik_desc }}">
                 </div>
 
                 <div class="form-group has-feedback">
                   <label>Bukti Fisik</label>
-                  {!! Form::file('file', array('required' => 'required', 'accept' => 'application/pdf')) !!}
+                  {!! Form::file('file', array( 'accept' => 'application/pdf')) !!}
                 </div>
                 
                 <div class="row">
@@ -88,8 +79,11 @@
 @section('js')
 
 <script type="text/javascript">
+    
+  
 
 
+    
 </script>
 
 @endsection

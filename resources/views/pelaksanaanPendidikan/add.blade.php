@@ -56,9 +56,14 @@
                   <input type="text" class="form-control" required id="periode" name="periode" placeholder="Masukkan Periode" value="">
                 </div>
 
+                <div class="form-group">
+                  <label>Deskripsi Bukti Fisik</label>
+                  <input type="text" class="form-control" required id="bukti_fisik_desc" name="bukti_fisik_desc" placeholder="Masukkan Deskripsi Bukti Fisik" value="">
+                </div>
+
                 <div class="form-group has-feedback">
                       <label>Bukti Fisik</label>
-                      {!! Form::file('file', array('required' => 'required')) !!}
+                      {!! Form::file('file', array('required' => 'required', 'accept' => 'application/pdf')) !!}
                     </div>
                 
                 <div class="row">

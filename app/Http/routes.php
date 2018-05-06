@@ -99,8 +99,61 @@ Route::group(['middleware' => 'auth'], function(){
 
 
 	Route::get('/bimbingan/laporanAkhir/detail/{id_bimbingan_laporanAkhir}', 'Bimbingan\BimbinganCtrl@detailLaporanAkhir');
-	Route::get('/bimbingan/laporanAkhir/addDetail', 'Bimbingan\BimbinganCtrl@addLaporanAkhirDetail');
+	Route::get('/bimbingan/laporanAkhir/addDetail/{id_bimbingan_laporanAkhir}', 'Bimbingan\BimbinganCtrl@addLaporanAkhirDetail');
 	Route::post('postBimbinganLaporanAkhirDetail',['as'=>'postBimbinganLaporanAkhirDetail','uses'=>'Bimbingan\BimbinganCtrl@CreateLaporanAkhirDetail']);
+
+	Route::get('/bimbingan/laporanAkhir/editDetail/{id_bimbingan_laporanAkhir}', 'Bimbingan\BimbinganCtrl@editLaporanAkhirDetail');
+	Route::put('putBimbinganLaporanAkhirDetail',['as'=>'putBimbinganLaporanAkhirDetail','uses'=>'Bimbingan\BimbinganCtrl@saveLaporanAkhirDetail']);
+	Route::delete('/bimbingan/laporanAkhirDetail/delete', 'Bimbingan\BimbinganCtrl@deleteLaporanAkhirDetail');
+
+	# PENGUJI UJIAN AKHIR
+	Route::get('/pengujian', 'PelaksanaanPendidikan\PengujiCtrl@pengujiUjianAkhir');
+	Route::get('/pengujian/add', 'PelaksanaanPendidikan\PengujiCtrl@add');
+	Route::post('postPengujiUjianAkhir',['as'=>'postPengujiUjianAkhir','uses'=>'PelaksanaanPendidikan\PengujiCtrl@Create']);
+
+	Route::get('/pengujian/edit/{id}', 'PelaksanaanPendidikan\PengujiCtrl@edit');
+	Route::put('putPengujian',['as'=>'putPengujian','uses'=>'PelaksanaanPendidikan\PengujiCtrl@save']);
+	Route::delete('/pengujian/delete', 'PelaksanaanPendidikan\PengujiCtrl@drop');
+
+
+	Route::get('/pengujian/detail/{id}', 'PelaksanaanPendidikan\PengujiCtrl@detail');
+	Route::get('/pengujian/detail/add/{id}', 'PelaksanaanPendidikan\PengujiCtrl@addMahasiswa');
+	Route::post('postPengujianMahasiswa',['as'=>'postPengujianMahasiswa','uses'=>'PelaksanaanPendidikan\PengujiCtrl@CreateMahasiswa']);
+
+	Route::get('/pengujian/detail/edit/{id}', 'PelaksanaanPendidikan\PengujiCtrl@editMahasiswa');
+	Route::put('putPengujianMahasiswa',['as'=>'putPengujianMahasiswa','uses'=>'PelaksanaanPendidikan\PengujiCtrl@saveMahasiswa']);
+	Route::delete('/pengujian/detail/delete', 'PelaksanaanPendidikan\PengujiCtrl@dropMahasiswa');
+
+	# MEMBINA KEGIATAN MAHASISWA
+	Route::get('/kegiatan/mahasiswa', 'Kegiatan\KegiatanCtrl@index');
+	Route::get('/kegiatan/mahasiswa/add', 'Kegiatan\KegiatanCtrl@add');
+	Route::post('postKegiatan',['as'=>'postKegiatan','uses'=>'Kegiatan\KegiatanCtrl@Create']);
+
+	Route::get('/kegiatan/mahasiswa/edit/{id}', 'Kegiatan\KegiatanCtrl@edit');
+	Route::put('putKegiatan',['as'=>'putKegiatan','uses'=>'Kegiatan\KegiatanCtrl@save']);
+	Route::delete('/kegiatan/mahasiswa/delete', 'Kegiatan\KegiatanCtrl@drop');
+
+	# MENGEMBANGKAN PROGRAM KULIAH
+	Route::get('/program/kuliah', 'Program\ProgramCtrl@index');
+	Route::get('/program/kuliah/add', 'Program\ProgramCtrl@add');
+	Route::post('postProgramKuliah',['as'=>'postProgramKuliah','uses'=>'Program\ProgramCtrl@Create']);
+
+	Route::get('/program/kuliah/edit/{id}', 'Program\ProgramCtrl@edit');
+	Route::put('putProgramKuliah',['as'=>'putProgramKuliah','uses'=>'Program\ProgramCtrl@save']);
+	Route::delete('/program/kuliah/delete', 'Program\ProgramCtrl@drop');
+
+	# MENGEMBANGKAN BAHAN PENGAJARAN
+	Route::get('/bahan/pengajaran', 'BahanPengajaran\BahanPengajaranCtrl@index');
+	Route::get('/bahan/pengajaran/add', 'BahanPengajaran\BahanPengajaranCtrl@add');
+	Route::post('postBahanPengajaran',['as'=>'postBahanPengajaran','uses'=>'BahanPengajaran\BahanPengajaranCtrl@Create']);
+
+	Route::get('/bahan/pengajaran/edit/{id}', 'BahanPengajaran\BahanPengajaranCtrl@edit');
+	Route::put('putBahanPengajaran',['as'=>'putBahanPengajaran','uses'=>'BahanPengajaran\BahanPengajaranCtrl@save']);
+	Route::delete('/bahan/pengajaran/delete', 'BahanPengajaran\BahanPengajaranCtrl@drop');
+
+	# MENGEMBANGKAN BAHAN PENGAJARAN
+	Route::get('/PAK', 'PAK\PakCtrl@indexDosen');
+	Route::get('/PAK/detail', 'PAK\PakCtrl@detailDosen');
 
 });
 

@@ -8,7 +8,7 @@
         <!-- <small>Control panel</small> -->
       </h1>
       <ol class="breadcrumb">
-        <li class="active"><a href="#"><i class="fa fa-chain"></i> Bimbingan KKP</a></li>
+        <li class="active"><a href="#"><i class="fa fa-chain"></i> Pengujian</a></li>
       </ol>
     </section>
 
@@ -25,7 +25,7 @@
 
             {!! csrf_field() !!}
             
-            {!! Form::open(array('route' => 'postBimbinganKkp','files'=>true)) !!}
+            {!! Form::open(array('route' => 'postPengujiUjianAkhir','files'=>true)) !!}
             <div class="box-body">
 
                 <div class="form-group hide">
@@ -34,37 +34,20 @@
                 </div>
 
                 <div class="form-group">
-                  <label>Nama Bimbingan</label>
-                  <input type="text" class="form-control" required id="nama_bimbingan" name="nama_bimbingan" placeholder="Masukkan Nama Bimbingan" value="">
-                </div>
-
-                <div class="form-group">
                   <label>Periode</label>
                   <select class="form-control" id="periode" name="periode" required>
                     @foreach ($periode as $key => $value)
                         <option value="{{ $value->id_periode }}"> {{ $value->tahun }} </option>
                     @endforeach
-                    
-                    
                   </select>
                 </div>
 
                 <div class="form-group">
                   <label>Semester</label>
-                  <select class="form-control" id="semester" name="semester">
+                  <select class="form-control" id="semester" name="semester" required>
                     <option value="0">Genap</option>
                     <option value="1">Ganjil</option>
                   </select>
-                </div>
-
-                <div class="form-group">
-                  <label>Volume Kegiatan</label>
-                  <input type="text" class="form-control" required id="jumlah_sks" name="jumlah_sks" placeholder="Masukkan Jumlah SKS" value="">
-                </div>
-
-                <div class="form-group has-feedback">
-                  <label>Bukti Fisik</label>
-                  {!! Form::file('file', array('required' => 'required', 'accept' => 'application/pdf')) !!}
                 </div>
                 
                 <div class="row">

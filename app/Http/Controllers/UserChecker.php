@@ -24,6 +24,7 @@ class UserChecker extends Controller {
                 $data['menu_dosen'] = 'hidden';
             }
         }else{
+            $data['is_admin'] = 'hidden';
             $data['menu_dosen'] = 'hidden';
             $data['is_logout'] = 'hidden';
             $data['is_login'] = 'show';

@@ -8,7 +8,7 @@
         <!-- <small>Control panel</small> -->
       </h1>
       <ol class="breadcrumb">
-        <li class="active"><a href="#"><i class="fa fa-chain"></i> Bimbingan Seminar</a></li>
+        <li class="active"><a href="#"><i class="fa fa-chain"></i> Mengembangkan Bahan Pengajaran</a></li>
       </ol>
     </section>
 
@@ -21,7 +21,7 @@
             <h4 class="modal-title">Perhatian</h4>
           </div>
           <div class="modal-body">
-            <p>Anda yakin akan menghapus ini ?</p>
+            <p>Anda yakin akan menghapus data ini ?</p>
           </div>
           <div class="modal-footer">
             <button type="button" class="btn btn-default" data-dismiss="modal" onclick="deleteConfirm()">Hapus</button>
@@ -36,43 +36,57 @@
         <div class="col-xs-12">
           <div class="box">
             <div class="box-header">
-              <h3 class="box-title">Data {{ $title }}</h3>
-
+              <h3 class="box-title"></h3>
               <div class="box-tools">
                 <div class="input-group input-group-sm" style="width: 150px;">
                   <!-- <input type="text" name="table_search" class="form-control pull-right" placeholder="Search"> -->
 
                   <div class="button pull-right">
-                    <button type="submit" class="btn btn-primary btn-sm" onclick="add()"><i class="fa fa-plus"></i> Tambah </button>
+                    <button type="submit" class="btn btn-primary btn-sm" onclick="add()"><i class="fa fa-plus"></i> Tambah</button>
                   </div>
                 </div>
               </div>
             </div>
             <!-- /.box-header -->
             <div class="box-body table-responsive no-padding">
+
+              @if(Session::has('message'))
+                  <div class="alert alert-success alert-dismissible">
+                  <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+                  <h4><i class="icon fa fa-check"></i> Berhasil!</h4>
+                  {{ session('message') }}
+                  </div>
+              @endif
+
+              @if(Session::has('error'))
+                  <div class="alert alert-danger alert-dismissible">
+                  <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+                  <h4><i class="icon fa fa-times"></i> Gagal!</h4>
+                  <ul class="list-unstyled">
+                      <li>{{ session('error') }}</li>
+                      
+                  </ul>
+              </div>
+              @endif
+
               <table class="table table-hover">
                 <tr>
                   <th style="width:'5%'">No</th>
-                  <th>Nama Bimbingan</th>
-                  <th class="text-center">Periode</th>
-                  <th class="text-center">Semester</th>
-                  <th class="text-center">Volume Kegiatan</th>
-                  <th class="text-center">Angka Kredit</th>
-
-                  <th>Bukti Fisik</th>
+                  <th>Judul</th>
+                  <th class="text-center">Tahun</th>
+                  <th class="text-center">Bukti Fisik</th>
+                  <th class="text-center">Aksi</th>
                 </tr>
 
                 @foreach ($result as $key => $value)
                 
                   <tr>
                     <td>{{ $key + 1 }}</td>
-                    <td>{{ $value->nama_bimbingan }}</td>
+                    <td>{{ $value->nama }}</td>
                     <td class="text-center">{{ $value->tahun }}</td>
-                    <td class="text-center">{{ $value->semester }} </td>
-                    <td class="text-center">{{ $value->jumlah_sks }}</td>
-                    <td class="text-center">{{ $value->angka_kredit }}</td>
-                    <td><a href="{{ url('assets/bukti_fisik/').'/'.$value->bukti_fisik }}" target="_blank">{{ $value->bukti_fisik }}</a> </td>
-                    <td><button class="btn btn-sm btn-info" onclick="edit({{$value->id_bimbingan_seminar }})"><i class="fa fa-pencil"></i> Edit</button> <button class="btn btn-sm btn-danger" onclick="ButtonDelete({{ $value->id_bimbingan_seminar }})"><i class="fa fa-trash"></i> Delete</button></td>
+                    <td class="text-center"><a href="{{ url('assets/bukti_fisik/').'/'.$value->bukti_fisik }}" target="_blank">{{ $value->bukti_fisik_desc }} </a></td>
+                    
+                    <td class="text-center"> <button class="btn btn-sm btn-info" onclick="edit({{$value->id_bahan_pengajaran }})"><i class="fa fa-pencil"></i> Edit</button> <button class="btn btn-sm btn-danger" onclick="ButtonDelete({{ $value->id_bahan_pengajaran }})"><i class="fa fa-trash"></i> Delete</button></td>
                   </tr>
 
                 @endforeach
@@ -94,22 +108,22 @@
 <script type="text/javascript">
     
     function add() {
-        location.href='/bimbingan/seminar/add';
+        location.href='/bahan/pengajaran/add';
     }
 
-    function edit(id_bimbingan_seminar) {
-        console.log('EDIT ', id_bimbingan_seminar);
-        location.href='/bimbingan/seminar/edit/'+id_bimbingan_seminar;
+    function edit(id) {
+        console.log('EDIT ', id);
+        location.href='/bahan/pengajaran/edit/'+id;
     }
 
     var _token = $('input[name="_token"]').val();
 
     var selectedID = 0;
 
-    function ButtonDelete(id_bimbingan_seminar) {
-        console.log(id_bimbingan_seminar);
+    function ButtonDelete(id) {
+        console.log(id);
 
-        selectedID = id_bimbingan_seminar;
+        selectedID = id;
         $("#myModal").on("show", function() {    
             $("#myModal a.btn").on("click", function(e) {
                 console.log("button pressed");
@@ -135,12 +149,12 @@
         console.log('INI AKAN DI HAPUS : ', selectedID);
 
         var data = {
-                "id_bimbingan_seminar" : selectedID,
+                "id_bahan_pengajaran" : selectedID,
                 "_token" : _token};
 
           $.ajax({
              type: 'delete',
-             url: '{{url("/bimbingan/seminar/delete")}}',
+             url: '{{url("/bahan/pengajaran/delete")}}',
              data: data,
              success: function(data) {
 

@@ -59,9 +59,17 @@
 
                 <div class="form-group">
                   <label>Semester</label>
-                  <select class="form-control" id="semester" name="semester">
+                  <select class="form-control" id="semester" name="semester" required>
                     <option value="0">Genap</option>
                     <option value="1">Ganjil</option>
+                  </select>
+                </div>
+
+                <div class="form-group">
+                  <label>Status</label>
+                  <select class="form-control" id="status" name="status" required>
+                    <option value="0">Belum Selesai</option>
+                    <option value="1">Selesai</option>
                   </select>
                 </div>
                 
