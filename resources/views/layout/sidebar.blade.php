@@ -79,7 +79,8 @@
           </ul>
         </li>
 
-        <li class="active {{ $user['is_admin'] }}"><a href="{{ url('/PAK') }}"><i class="fa fa-book"></i> Layanan PAK</a></li>
+        <li class=" {{ $user['is_admin'] }}"><a href="{{ url('/dosen') }}"><i class="fa fa-mortar-board"></i> Dosen</a></li>
+        <li class=" {{ $user['is_admin'] }}"><a href="{{ url('/PAK') }}"><i class="fa fa-book"></i> Layanan PAK</a></li>
 
         <li class="treeview {{ $user['menu_dosen'] }}">
           <a href="#">

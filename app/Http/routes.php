@@ -151,9 +151,19 @@ Route::group(['middleware' => 'auth'], function(){
 	Route::put('putBahanPengajaran',['as'=>'putBahanPengajaran','uses'=>'BahanPengajaran\BahanPengajaranCtrl@save']);
 	Route::delete('/bahan/pengajaran/delete', 'BahanPengajaran\BahanPengajaranCtrl@drop');
 
-	# MENGEMBANGKAN BAHAN PENGAJARAN
+
+															# ADMIN 
+	# PAK
 	Route::get('/PAK', 'PAK\PakCtrl@indexDosen');
-	Route::get('/PAK/detail', 'PAK\PakCtrl@detailDosen');
+	Route::get('/PAK/detail/{id}', 'PAK\PakCtrl@detailDosen');
+
+	# DOSEN
+	Route::get('/dosen', 'Dosen\DosenCtrl@index');
+	Route::get('/dosen/add', 'Dosen\DosenCtrl@add');
+	Route::post('postPelaksanaanPendidikan',['as'=>'postPelaksanaanPendidikan','uses'=>'PelaksanaanPendidikan\PelaksanaanPendidikanCtrl@Create']);
+	Route::get('/pelaksanaan/pendidikan/edit/{id_pelaksanaan_pendidikan}', 'PelaksanaanPendidikan\PelaksanaanPendidikanCtrl@edit');
+	Route::put('putPelaksanaanPendidikan',['as'=>'putPelaksanaanPendidikan','uses'=>'PelaksanaanPendidikan\PelaksanaanPendidikanCtrl@save']);
+	Route::delete('/pelaksanaan/pendidikan/delete', 'PelaksanaanPendidikan\PelaksanaanPendidikanCtrl@delete');
 
 });
 

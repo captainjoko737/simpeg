@@ -8,7 +8,7 @@
         <!-- <small>Control panel</small> -->
       </h1>
       <ol class="breadcrumb">
-        <li class="active"><a href="#"><i class="fa fa-chain"></i> Layanan PAK</a></li>
+        <li class="active"><a href="#"><i class="fa fa-mortar-board"></i> Dosen</a></li>
       </ol>
     </section>
 
@@ -42,7 +42,7 @@
                   <!-- <input type="text" name="table_search" class="form-control pull-right" placeholder="Search"> -->
 
                   <div class="button pull-right">
-                    <!-- <button type="submit" class="btn btn-primary btn-sm" onclick="add()"><i class="fa fa-plus"></i> Tambah</button> -->
+                    <button type="submit" class="btn btn-primary btn-sm" onclick="add()"><i class="fa fa-plus"></i> Tambah</button>
                   </div>
                 </div>
               </div>
@@ -64,16 +64,21 @@
                   <h4><i class="icon fa fa-times"></i> Gagal!</h4>
                   <ul class="list-unstyled">
                       <li>{{ session('error') }}</li>
+                      
                   </ul>
               </div>
               @endif
 
-              <table class="table table-striped">
+              <table class="table table-hover">
                 <tr>
                   <th style="width:'5%'">No</th>
+                  <th>Username</th>
                   <th>Nama</th>
-                  <th>NIP</th>
+                  <th>Gelar</th>
+                  <th>Bidang Studi</th>
+
                   <th>Jenis Kelamin</th>
+                  <th>TTL</th>
                   <th>Agama</th>
                   <th>Kewarganegaraan</th>
                   <th>Aksi</th>
@@ -83,12 +88,16 @@
                 
                   <tr>
                     <td>{{ $key + 1 }}</td>
+                    <td>{{ $value->username }}</td>
                     <td>{{ $value->nama }}</td>
-                    <td>{{ $value->nip }}</td>
+                    <td>{{ $value->pendidikan->gelar_akademik }}</td>
+                    <td>{{ $value->pendidikan->bidang_studi }}</td>
+
                     <td>{{ $value->jenis_kelamin }}</td>
+                    <td>{{ $value->tempat_lahir }} {{ $value->tanggal_lahir }}</td>
                     <td>{{ $value->agama }}</td>
                     <td>{{ $value->kewarganegaraan }}</td>
-                    <td> <button class="btn btn-sm btn-success" onclick="detail({{ $value->id_user }})"><i class="fa fa-search"></i> Detail PAK</button></td>
+                    <td> <!-- <button class="btn btn-sm btn-info" onclick="edit({{$value->id_user }})"><i class="fa fa-pencil"></i> Edit</button> --> <button class="btn btn-sm btn-danger" onclick="ButtonDelete({{ $value->id_user }})"><i class="fa fa-trash"></i> Delete</button></td>
                   </tr>
 
                 @endforeach
@@ -109,8 +118,8 @@
 
 <script type="text/javascript">
     
-    function detail(id) {
-        location.href='/PAK/detail/'+id;
+    function add() {
+        location.href='/dosen/add';
     }
 
     function edit(id) {
