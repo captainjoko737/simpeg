@@ -10,6 +10,7 @@ use App\Http\Controllers\UserChecker;
 use Illuminate\Support\Facades\Auth;
 use App\User;
 use App\Models\MJabatanStruktural;
+use DB;
 
 class JabatanStrukturalCtrl extends Controller {
     
@@ -28,11 +29,11 @@ class JabatanStrukturalCtrl extends Controller {
 
         $data['jabatan_struktural'] = $resultJabatanStruktural;
 
-        return view('pengabdian.jabatan_struktural', $data);
+        return view('pengabdian.index', $data);
 
     }
 
-    public function tambahJabatanStruktural() {
+    public function add() {
                 
         $data['title'] = 'Tambah Jabatan Struktural';
 
@@ -43,22 +44,48 @@ class JabatanStrukturalCtrl extends Controller {
         
         $data['id_user'] = $id_user;
 
-        return view('pengabdian.tambahJabatanStruktural', $data);
+        return view('pengabdian.add', $data);
 
     }
 
-    public function AddJabatanStruktural(request $request) {
+    public function create(request $request) {
 
-        $jabatanStruktural = MJabatanStruktural::create($request->all());
+        // $jabatanStruktural = MJabatanStruktural::create($request->all());
 
-        if ($jabatanStruktural) {
-            return redirect('/pengabdian/jabatanStruktural');
-        }else{
-            return redirect('/pengabdian/jabatanStruktural/add');
+        // if ($jabatanStruktural) {
+        //     return redirect('/pengabdian/jabatanStruktural');
+        // }else{
+        //     return redirect('/pengabdian/jabatanStruktural/add');
+        // }
+
+        if ($request->file) {
+            $fileName = time().'.'.$request->file->getClientOriginalExtension();
+            $request['bukti_fisik']    = $fileName;
+
+            $save = DB::table('jabatan_struktural')->insert(
+                [
+                    'id_user' => $request->id_user, 
+                    'jabatan_tugas' => $request->jabatan_tugas,
+                    'kategori_kegiatan' => $request->kategori_kegiatan,
+                    'nomor_sk_jabatan_struktural' => $request->nomor_sk_jabatan_struktural,
+                    'terhitung_mulai_tanggal' => $request->terhitung_mulai_tanggal,
+                    'lokasi_penugasan' => $request->lokasi_penugasan,
+                    'bukti_fisik_desc' => $request->bukti_fisik_desc,
+                    'bukti_fisik' => $request->bukti_fisik
+                ]
+            );
+
+            if ($save) {
+                if ($request->file) {
+                    $request->file->move(base_path().'/public/assets/bukti_fisik/', $fileName);
+                }
+            }
         }
+
+        return redirect('/pengabdian/jabatanStruktural');
     }
 
-    public function EditJabatanStruktural($id_jabatan_struktural) {
+    public function edit($id_jabatan_struktural) {
                 
         $data['title'] = 'Edit Jabatan Struktural';
 
@@ -72,26 +99,62 @@ class JabatanStrukturalCtrl extends Controller {
         $data['jabatanStruktural'] = $jabatanStruktural;
         $data['id_user'] = $id_user;
 
-        return view('pengabdian.editJabatanStruktural', $data);
+        return view('pengabdian.edit', $data);
 
     }
 
-    public function SaveJabatanStruktural(request $request) {
+    public function save(request $request) {
 
-        $update = MJabatanStruktural::where('id_jabatan_struktural', '=', $request->id_jabatan_struktural)
-                        ->update([
-                            'jabatan_tugas' => $request->jabatan_tugas,
-                            'kategori_kegiatan' => $request->kategori_kegiatan,
-                            'nomor_sk_jabatan_struktural' => $request->nomor_sk_jabatan_struktural,
-                            'terhitung_mulai_tanggal' => $request->terhitung_mulai_tanggal,
-                            'lokasi_penugasan' => $request->lokasi_penugasan,
+        // $update = MJabatanStruktural::where('id_jabatan_struktural', '=', $request->id_jabatan_struktural)
+        //                 ->update([
+                            // 'jabatan_tugas' => $request->jabatan_tugas,
+                            // 'kategori_kegiatan' => $request->kategori_kegiatan,
+                            // 'nomor_sk_jabatan_struktural' => $request->nomor_sk_jabatan_struktural,
+                            // 'terhitung_mulai_tanggal' => $request->terhitung_mulai_tanggal,
+                            // 'lokasi_penugasan' => $request->lokasi_penugasan,
+        //                     ]);
+
+        // return redirect('/pengabdian/jabatanStruktural');
+        if ($request->file) {
+                $fileName = time().'.'.$request->file->getClientOriginalExtension();
+                $request['bukti_fisik']    = $fileName;
+
+                $save = DB::table('jabatan_struktural')
+                            ->where('id_jabatan_struktural', $request->id_jabatan_struktural)
+                            ->update([
+                                'jabatan_tugas' => $request->jabatan_tugas,
+                                'kategori_kegiatan' => $request->kategori_kegiatan,
+                                'nomor_sk_jabatan_struktural' => $request->nomor_sk_jabatan_struktural,
+                                'terhitung_mulai_tanggal' => $request->terhitung_mulai_tanggal,
+                                'lokasi_penugasan' => $request->lokasi_penugasan,
+                                'bukti_fisik_desc' => $request->bukti_fisik_desc,
+                                'bukti_fisik' => $request->bukti_fisik
                             ]);
+
+                if ($save) {
+                    if ($request->file) {
+                        $request->file->move(base_path().'/public/assets/bukti_fisik/', $fileName);
+                    }
+                }
+            }else{
+
+                $save = DB::table('jabatan_struktural')
+                            ->where('id_jabatan_struktural', $request->id_jabatan_struktural)
+                            ->update([
+                                'jabatan_tugas' => $request->jabatan_tugas,
+                                'kategori_kegiatan' => $request->kategori_kegiatan,
+                                'nomor_sk_jabatan_struktural' => $request->nomor_sk_jabatan_struktural,
+                                'terhitung_mulai_tanggal' => $request->terhitung_mulai_tanggal,
+                                'lokasi_penugasan' => $request->lokasi_penugasan,
+                                'bukti_fisik_desc' => $request->bukti_fisik_desc
+                        ]);
+            }
 
         return redirect('/pengabdian/jabatanStruktural');
 
     }
 
-    public function deleteJabatanStruktural(request $request) {
+    public function drop(request $request) {
 
         $jabatanStruktural = MJabatanStruktural::find($request->id_jabatan_struktural);
 

@@ -70,32 +70,35 @@
               </div>
               @endif
 
-              <table class="table table-hover">
-                <tr>
-                  <th style="width:'5%'">No</th>
-                  <th>Jenis Bimbingan</th>
-                  <th class="text-center">Periode</th>
-                  <th class="text-center">Semester</th>
-                  <th class="text-center">Status</th>
-                  <th class="text-center">Angka Kredit</th>
-                  <th class="text-center">Aksi</th>
-                </tr>
-
-                @foreach ($result as $key => $value)
-                
+              <table id="example" class="display nowrap" style="width:100%">
+                <thead>
                   <tr>
-                    <td>{{ $key + 1 }}</td>
-                    <td>{{ $value->jenis_bimbingan }}</td>
-                    <td class="text-center">{{ $value->tahun }}</td>
-                    <td class="text-center">{{ $value->semester }} </td>
-                    <td class="text-center">{{ $value->status }} </td>
-                    <td class="text-center">{{ $value->angka_kredit }}</td>
-                    
-                    <td class="text-center"><button class="btn btn-sm btn-success" onclick="detail({{$value->id_bimbingan_laporan_akhir }})"><i class="fa fa-eye"></i> Detail</button> <button class="btn btn-sm btn-info" onclick="edit({{$value->id_bimbingan_laporan_akhir }})"><i class="fa fa-pencil"></i> Edit</button> <button class="btn btn-sm btn-danger" onclick="ButtonDelete({{ $value->id_bimbingan_laporan_akhir }})"><i class="fa fa-trash"></i> Delete</button></td>
+                    <th style="width:'5%'">No</th>
+                    <th>Jenis Bimbingan</th>
+                    <th class="text-center">Periode</th>
+                    <th class="text-center">Semester</th>
+                    <th class="text-center">Status</th>
+                    <th class="text-center">Angka Kredit</th>
+                    <th class="text-center">Aksi</th>
                   </tr>
+                </thead>
 
-                @endforeach
-               
+                <tbody>
+                  @foreach ($result as $key => $value)
+                  
+                    <tr>
+                      <td>{{ $key + 1 }}</td>
+                      <td>{{ $value->jenis_bimbingan }}</td>
+                      <td class="text-center">{{ $value->tahun }}</td>
+                      <td class="text-center">{{ $value->semester }} </td>
+                      <td class="text-center">{{ $value->status }} </td>
+                      <td class="text-center">{{ $value->angka_kredit }}</td>
+                      
+                      <td class="text-center"><button class="btn btn-sm btn-success" onclick="detail({{$value->id_bimbingan_laporan_akhir }})"><i class="fa fa-eye"></i> Detail</button> <button class="btn btn-sm btn-info" onclick="edit({{$value->id_bimbingan_laporan_akhir }})"><i class="fa fa-pencil"></i></button> <button class="btn btn-sm btn-danger" onclick="ButtonDelete({{ $value->id_bimbingan_laporan_akhir }})"><i class="fa fa-trash"></i></button></td>
+                    </tr>
+
+                  @endforeach
+                </tbody>
                 
               </table>
             </div>

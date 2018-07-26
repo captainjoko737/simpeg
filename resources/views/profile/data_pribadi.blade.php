@@ -78,6 +78,10 @@
                   <td style="width: 50%">{{ $profile['nip'] }}</td>   
                 </tr>
                 <tr>
+                  <td style="width: 30%"><strong>NIDN</strong></td>
+                  <td style="width: 50%">{{ $profile['nidn'] }}</td>   
+                </tr>
+                <tr>
                   <td style="width: 30%"><strong>Nomor SK CPNS</strong></td>
                   <td style="width: 50%">{{ $profile['nomor_sk_cpns'] }}</td>   
                 </tr>

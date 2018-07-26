@@ -6,9 +6,9 @@
     <!-- Main content -->
     <section class="content">
       <div class="login-box">
-        <!-- <div class="login-logo">
-          <a href="{{ url() }}"><img src="{{ url('assets/img/cropped-logo.png') }}" style="width: 365px;"></a>
-        </div> -->
+        <div class="login-logo">
+          <a href="{{ url() }}"><img src="{{ url('assets/image_assets/logo.png') }}" style="width: 200px;"></a>
+        </div>
         <!-- /.login-logo -->
         <div class="login-box-body">
           <p class="login-box-msg">Silahkan Login Ke Akun Anda</p>

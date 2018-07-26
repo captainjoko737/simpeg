@@ -57,104 +57,222 @@ class DosenCtrl extends Controller {
 
     public function Create(request $request) {
 
-        if ($request->file) {
-            $fileName = time().'.'.$request->file->getClientOriginalExtension();
-            $request['bukti_fisik']    = $fileName;
+        // return $request->all();
 
-            $save = DB::table('bahan_pengajaran')->insert(
-                [
-                    'id_user' => $request->id_user, 
-                    'tahun' => $request->tahun,
-                    'volume_kegiatan' => $request->volume_kegiatan,
-                    'nama' => $request->nama,
-                    'bukti_fisik_desc' => $request->bukti_fisik_desc,
-                    'bukti_fisik' => $request->bukti_fisik
-                ]
-            );
+        $fileName = time().'.'.$request->image_file->getClientOriginalExtension();
+        $request['photo']    = $fileName;
 
-            if ($save) {
-                if ($request->file) {
-                    $request->file->move(base_path().'/public/assets/bukti_fisik/', $fileName);
-                }
-                session()->flash('message', 'Data Berhasil dibuat');
-                return redirect('/bahan/pengajaran');
-            }else{
-                session()->flash('error', 'Terjadi Kesalahan');
-                return redirect('/bahan/pengajaran');
-            }
-        }
+        $password = bcrypt($request->password);
+        $dataPribadi = [
+                    'username' => $request->username, 
+                    'password' => $password,
+                    'password_readable' => $request->password, 
+                    'jenis_kelamin' => $request->jenis_kelamin,
+                    'tempat_lahir' => $request->tempat_lahir,
+                    'tanggal_lahir' => $request->tanggal_lahir,
+                    'agama' => $request->agama,
+                    'kewarganegaraan' => $request->kewarganegaraan,
+                    'is_admin' => 0,
+                    'status_edit' => 0,
+                    'photo' => $request->photo
+                ];
 
-        return redirect('/bahan/pengajaran');
+        $id_user = DB::table('users')->insertGetId($dataPribadi);
+
+        $request->image_file->move(base_path().'/public/assets/bukti_fisik/', $fileName);
+
+        $kepegawaian = ['id_user' => $id_user, 
+                        'nip' => $request->nip,
+                        'nidn' => $request->nidn,
+                        'nomor_sk_cpns' => $request->nomor_sk_cpns, 
+                        'sk_cpns_terhitung_mulai_tanggal' => $request->sk_cpns_terhitung_mulai_tanggal,
+                        'nomor_sk_pns' => $request->nomor_sk_pns,
+                        'tanggal_menjadi_pns' => $request->tanggal_menjadi_pns,
+                        'sumber_gaji' => $request->sumber_gaji
+        ];
+
+        DB::table('kepegawaian')->insert($kepegawaian);
+
+        $alamatKontak = ['id_user' => $id_user, 
+                        'email' => $request->email,
+                        'alamat' => $request->alamat, 
+                        'rt' => $request->rt,
+                        'rw' => $request->rw,
+                        'dusun' => $request->dusun,
+                        'desa_kabupaten' => $request->desa_kabupaten,
+                        'kota_kabupaten' => $kota_kabupaten,
+                        'provinsi' => $request->provinsi, 
+                        'kode_pos' => $request->kode_pos,
+                        'no_telepon_rumah' => $request->no_telepon_rumah,
+                        'no_hp' => $request->no_hp
+        ];
+
+        DB::table('alamat_kontak')->insert($alamatKontak);
+
+        $keluarga = [   'id_user' => $id_user, 
+                        'nama_ibu_kandung' => $request->nama_ibu_kandung,
+                        'status_perkawinan' => $request->status_perkawinan, 
+                        'nama_suami_istri' => $request->nama_suami_istri,
+                        'nip_suami_istri' => $request->nip_suami_istri,
+                        'pekerjaan_suami_istri' => $request->pekerjaan_suami_istri,
+                        'terhitung_mulai_tanggal_pns_suami_istri' => $request->terhitung_mulai_tanggal_pns_suami_istri
+        ];
+
+        DB::table('keluarga')->insert($keluarga);
+
+        $lainLain = [   'id_user' => $id_user, 
+                        'npwp' => $request->npwp,
+                        'nama_wajib_pajak' => $request->nama_wajib_pajak
+        ];
+
+        DB::table('lain_lain')->insert($lainLain);
+
+        return redirect('/dosen');
 
     }
 
     public function edit($id) {
 
-        $data['title'] = 'Edit Bahan Pengajaran';
+        $data['title'] = 'Edit Dosen';
 
         $user = (new UserChecker)->checkUser(Auth::user());
         $data['user'] = $user;
 
         $id_user = Auth::user()->id_user;
         
-        $result = DB::table('bahan_pengajaran')
-        ->where('bahan_pengajaran.id_bahan_pengajaran', '=', $id)
+        $user = DB::table('users')
+        ->where('id_user', '=', $id)
         ->get();
 
-        $data['result'] = $result[0];
-        $data['id_user'] = $id_user;
+        $kepegawaian = DB::table('kepegawaian')
+        ->where('id_user', '=', $id)
+        ->get();
 
-        return view('bahanPengajaran.edit', $data);
+        $alamatKontak = DB::table('alamat_kontak')
+        ->where('id_user', '=', $id)
+        ->get();
+
+        $keluarga = DB::table('keluarga')
+        ->where('id_user', '=', $id)
+        ->get();
+
+        $lainLain = DB::table('lain_lain')
+        ->where('id_user', '=', $id)
+        ->get();
+
+        $data['users'] = $user[0];
+        $data['kepegawaian'] = $kepegawaian[0];
+        $data['alamatKontak'] = $alamatKontak[0];
+        $data['keluarga'] = $keluarga[0];
+        $data['lainLain'] = $lainLain[0];
+
+        $data['id_user'] = $id;
+
+        return view('dosen.edit', $data);
     }
 
     public function save(request $request) {
 
-            if ($request->file) {
-                $fileName = time().'.'.$request->file->getClientOriginalExtension();
-                $request['bukti_fisik']    = $fileName;
+        // return $request->all();
 
-                $save = DB::table('bahan_pengajaran')
-                            ->where('id_bahan_pengajaran', $request->id_bahan_pengajaran)
+            if ($request->image_file) {
+                $fileName = time().'.'.$request->image_file->getClientOriginalExtension();
+                $request['photo']    = $fileName;
+
+                $password = bcrypt($request->password);
+                $save = DB::table('users')
+                            ->where('id_user', $request->id_user)
                             ->update([
-                                'tahun' => $request->tahun,
-                                'nama' => $request->nama,
-                                'volume_kegiatan' => $request->volume_kegiatan,
-                                'bukti_fisik_desc' => $request->bukti_fisik_desc,
-                                'bukti_fisik' => $request->bukti_fisik
+                                'username' => $request->username, 
+                                'password' => $password,
+                                'password_readable' => $request->password, 
+                                'jenis_kelamin' => $request->jenis_kelamin,
+                                'tempat_lahir' => $request->tempat_lahir,
+                                'tanggal_lahir' => $request->tanggal_lahir,
+                                'agama' => $request->agama,
+                                'kewarganegaraan' => $request->kewarganegaraan,
+                                'is_admin' => 0,
+                                'status_edit' => 0,
+                                'photo' => $request->photo
                             ]);
 
                 if ($save) {
-                    if ($request->file) {
-                        $request->file->move(base_path().'/public/assets/bukti_fisik/', $fileName);
+                    if ($request->image_file) {
+                        $request->image_file->move(base_path().'/public/assets/bukti_fisik/', $fileName);
                     }
                 }
             }else{
 
-                $save = DB::table('bahan_pengajaran')
-                            ->where('id_bahan_pengajaran', $request->id_bahan_pengajaran)
+                $password = bcrypt($request->password);
+                $save = DB::table('users')
+                            ->where('id_user', $request->id_user)
                             ->update([
-                                'tahun' => $request->tahun,
-                                'nama' => $request->nama,
-                                'volume_kegiatan' => $request->volume_kegiatan,
-                                'bukti_fisik_desc' => $request->bukti_fisik_desc
-                        ]);
+                                'username' => $request->username, 
+                                'password' => $password,
+                                'password_readable' => $request->password, 
+                                'jenis_kelamin' => $request->jenis_kelamin,
+                                'tempat_lahir' => $request->tempat_lahir,
+                                'tanggal_lahir' => $request->tanggal_lahir,
+                                'agama' => $request->agama,
+                                'kewarganegaraan' => $request->kewarganegaraan,
+                                'is_admin' => 0,
+                                'status_edit' => 0
+                            ]);
             }
 
-            if ($save) {
-                session()->flash('message', 'Data Berhasil diubah');
-                return redirect('/bahan/pengajaran');
-            }else{
-                session()->flash('error', 'Terjadi Kesalahan');
-                return redirect('/bahan/pengajaran');
-            }
+            $save = DB::table('kepegawaian')
+                            ->where('id_user', $request->id_user)
+                            ->update([
+                                'nip' => $request->nip,
+                                'nidn' => $request->nidn,
+                                'nomor_sk_cpns' => $request->nomor_sk_cpns, 
+                                'sk_cpns_terhitung_mulai_tanggal' => $request->sk_cpns_terhitung_mulai_tanggal,
+                                'nomor_sk_pns' => $request->nomor_sk_pns,
+                                'tanggal_menjadi_pns' => $request->tanggal_menjadi_pns,
+                                'sumber_gaji' => $request->sumber_gaji
+                            ]);
 
-        return redirect('/bahan/pengajaran');
+                $save = DB::table('alamat_kontak')
+                            ->where('id_user', $request->id_user)
+                            ->update([
+                                'email' => $request->email,
+                                'alamat' => $request->alamat, 
+                                'rt' => $request->rt,
+                                'rw' => $request->rw,
+                                'dusun' => $request->dusun,
+                                'desa_kabupaten' => $request->desa_kabupaten,
+                                'kota_kabupaten' => $request->kota_kabupaten,
+                                'provinsi' => $request->provinsi, 
+                                'kode_pos' => $request->kode_pos,
+                                'no_telepon_rumah' => $request->no_telepon_rumah,
+                                'no_hp' => $request->no_hp
+                            ]);
+
+                $save = DB::table('keluarga')
+                            ->where('id_user', $request->id_user)
+                            ->update([
+                                'nama_ibu_kandung' => $request->nama_ibu_kandung,
+                                'status_perkawinan' => $request->status_perkawinan, 
+                                'nama_suami_istri' => $request->nama_suami_istri,
+                                'nip_suami_istri' => $request->nip_suami_istri,
+                                'pekerjaan_suami_istri' => $request->pekerjaan_suami_istri,
+                                'terhitung_mulai_tanggal_pns_suami_istri' => $request->terhitung_mulai_tanggal_pns_suami_istri
+                            ]);
+
+                $save = DB::table('lain_lain')
+                            ->where('id_user', $request->id_user)
+                            ->update([
+                                'npwp' => $request->npwp,
+                                'nama_wajib_pajak' => $request->nama_wajib_pajak
+                            ]);
+                            
+        return redirect('/dosen');
 
     }
 
     public function drop(request $request) {
 
-        $success = DB::table('bahan_pengajaran')->where('id_bahan_pengajaran', '=', $request->id_bahan_pengajaran)->delete();
+        $success = DB::table('users')->where('id_user', '=', $request->id_user)->delete();
 
     }
 }

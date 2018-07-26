@@ -69,39 +69,39 @@
               </div>
               @endif
 
-              <table class="table table-hover">
-                <tr>
-                  <th style="width:'5%'">No</th>
-                  <th>Username</th>
-                  <th>Nama</th>
-                  <th>Gelar</th>
-                  <th>Bidang Studi</th>
-
-                  <th>Jenis Kelamin</th>
-                  <th>TTL</th>
-                  <th>Agama</th>
-                  <th>Kewarganegaraan</th>
-                  <th>Aksi</th>
-                </tr>
-
-                @foreach ($result as $key => $value)
-                
+              <table id="example" class="display nowrap" style="width:100%">
+                <thead>
                   <tr>
-                    <td>{{ $key + 1 }}</td>
-                    <td>{{ $value->username }}</td>
-                    <td>{{ $value->nama }}</td>
-                    <td>{{ $value->pendidikan->gelar_akademik }}</td>
-                    <td>{{ $value->pendidikan->bidang_studi }}</td>
-
-                    <td>{{ $value->jenis_kelamin }}</td>
-                    <td>{{ $value->tempat_lahir }} {{ $value->tanggal_lahir }}</td>
-                    <td>{{ $value->agama }}</td>
-                    <td>{{ $value->kewarganegaraan }}</td>
-                    <td> <!-- <button class="btn btn-sm btn-info" onclick="edit({{$value->id_user }})"><i class="fa fa-pencil"></i> Edit</button> --> <button class="btn btn-sm btn-danger" onclick="ButtonDelete({{ $value->id_user }})"><i class="fa fa-trash"></i> Delete</button></td>
+                    <th>Username</th>
+                    <th>Password</th>
+                    <th>Nama</th>
+                    <th>Gelar</th>
+                    <th>Bidang Studi</th>
+                    <th>Jenis Kelamin</th>
+                    <th>TTL</th>
+                    <th>Agama</th>
+                    <th>Kewarganegaraan</th>
+                    <th>Aksi</th>
                   </tr>
+                </thead>
+                <tbody>
+                  @foreach ($result as $key => $value)
+                  
+                    <tr>
+                      <td>{{ $value->username }}</td>
+                      <td>{{ $value->password_readable }}</td>
+                      <td>{{ $value->nama }}</td>
+                      <td>{{ $value->pendidikan->gelar_akademik }}</td>
+                      <td>{{ $value->pendidikan->bidang_studi }}</td>
+                      <td>{{ $value->jenis_kelamin }}</td>
+                      <td>{{ $value->tempat_lahir }} {{ $value->tanggal_lahir }}</td>
+                      <td>{{ $value->agama }}</td>
+                      <td>{{ $value->kewarganegaraan }}</td>
+                      <td> <button class="btn btn-sm btn-info" onclick="edit({{$value->id_user }})"><i class="fa fa-pencil" alt="lala"></i></button> <button class="btn btn-sm btn-danger" onclick="ButtonDelete({{ $value->id_user }})"><i class="fa fa-trash"></i></button></td>
+                    </tr>
 
-                @endforeach
-               
+                  @endforeach
+                </tbody>
                 
               </table>
             </div>
@@ -124,7 +124,7 @@
 
     function edit(id) {
         console.log('EDIT ', id);
-        location.href='/bahan/pengajaran/edit/'+id;
+        location.href='/dosen/edit/'+id;
     }
 
     var _token = $('input[name="_token"]').val();
@@ -160,12 +160,12 @@
         console.log('INI AKAN DI HAPUS : ', selectedID);
 
         var data = {
-                "id_bahan_pengajaran" : selectedID,
+                "id_user" : selectedID,
                 "_token" : _token};
 
           $.ajax({
              type: 'delete',
-             url: '{{url("/bahan/pengajaran/delete")}}',
+             url: '{{url("/dosen/drop")}}',
              data: data,
              success: function(data) {
 

@@ -10,6 +10,7 @@ use App\Http\Controllers\UserChecker;
 use Illuminate\Support\Facades\Auth;
 use App\User;
 use App\Models\MJabatanFungsional;
+use DB;
 
 class JabatanFungsionalCtrl extends Controller {
     
@@ -28,13 +29,12 @@ class JabatanFungsionalCtrl extends Controller {
         $resultJabatanFungsional = $queryJabatanFungsional->get();
 
         $data['jabatan_fungsional'] = $resultJabatanFungsional;
-        // return $resultJabatanFungsional;
 
-        return view('profile.jabatan_fungsional', $data);
+        return view('profile.jabatan_fungsional.index', $data);
 
     }
 
-    public function tambahJabatanFungsional() {
+    public function add() {
                 
         $data['title'] = 'Tambah Jabatan Fungsional';
 
@@ -45,22 +45,42 @@ class JabatanFungsionalCtrl extends Controller {
         
         $data['id_user'] = $id_user;
 
-        return view('profile.tambahJabatanFungsional', $data);
+        return view('profile.jabatan_fungsional.add', $data);
 
     }
 
-    public function AddJabatanFungsional(request $request) {
+    public function create(request $request) {                         
 
-        $jabatanFungsional = MJabatanFungsional::create($request->all());
+        if ($request->file) {
+            $fileName = time().'.'.$request->file->getClientOriginalExtension();
+            $request['bukti_fisik']    = $fileName;
 
-        if ($jabatanFungsional) {
-            return redirect('/profile/jabatanFungsional');
-        }else{
-            return redirect('/profile/jabatanFungsional/add');
+            $save = DB::table('jabatan_fungsional')->insert(
+                [
+                    'id_user' => $request->id_user, 
+                    'jabatan_fungsional' => $request->jabatan_fungsional,
+                    'nomor_sk' => $request->nomor_sk, 
+                    'terhitung_mulai_tanggal' => $request->terhitung_mulai_tanggal,
+                    'kelebihan_pengajaran' => $request->kelebihan_pengajaran,
+                    'kelebihan_penelitian' => $request->kelebihan_penelitian,
+                    'kelebihan_pengabdian_masyarakat' => $request->kelebihan_pengabdian_masyarakat,
+                    'kelebihan_kegiatan_penunjang' => $request->kelebihan_kegiatan_penunjang,
+                    'bukti_fisik_desc' => $request->bukti_fisik_desc,
+                    'bukti_fisik' => $request->bukti_fisik
+                ]
+            );
+
+            if ($save) {
+                if ($request->file) {
+                    $request->file->move(base_path().'/public/assets/bukti_fisik/', $fileName);
+                }
+            }
         }
+
+        return redirect('/profile/jabatanFungsional');
     }
 
-    public function EditJabatanFungsional($id_JabatanFungsional) {
+    public function edit($id_JabatanFungsional) {
                 
         $data['title'] = 'Edit Jabatan Fungsional';
 
@@ -74,52 +94,75 @@ class JabatanFungsionalCtrl extends Controller {
         $data['jabatanFungsional'] = $jabatanFungsional;
         $data['id_user'] = $id_user;
 
-        return view('profile.editJabatanFungsional', $data);
+        return view('profile.jabatan_fungsional.edit', $data);
 
     }
 
-    public function SaveJabatanFungsional(request $request) {
+    public function save(request $request) {
        
-        $update = MJabatanFungsional::where('id_jabatan_fungsional', '=', $request->id_jabatan_fungsional)
-                        ->update([
-                            'jabatan_fungsional' => $request->jabatan_fungsional,
-                            'nomor_sk' => $request->nomor_sk,
-                            'terhitung_mulai_tanggal' => $request->terhitung_mulai_tanggal,
-                            'kelebihan_pengajaran' => $request->kelebihan_pengajaran,
-                            'kelebihan_penelitian' => $request->kelebihan_penelitian,
-                            'kelebihan_pengabdian_masyarakat' => $request->kelebihan_pengabdian_masyarakat,
-                            'kelebihan_kegiatan_penunjang' => $request->kelebihan_kegiatan_penunjang,
+        // $update = MJabatanFungsional::where('id_jabatan_fungsional', '=', $request->id_jabatan_fungsional)
+        //                 ->update([
+        //                     'jabatan_fungsional' => $request->jabatan_fungsional,
+        //                     'nomor_sk' => $request->nomor_sk,
+        //                     'terhitung_mulai_tanggal' => $request->terhitung_mulai_tanggal,
+        //                     'kelebihan_pengajaran' => $request->kelebihan_pengajaran,
+        //                     'kelebihan_penelitian' => $request->kelebihan_penelitian,
+        //                     'kelebihan_pengabdian_masyarakat' => $request->kelebihan_pengabdian_masyarakat,
+        //                     'kelebihan_kegiatan_penunjang' => $request->kelebihan_kegiatan_penunjang,
+        //                     ]);
+
+        // return redirect('/profile/jabatanFungsional');
+
+        if ($request->file) {
+                $fileName = time().'.'.$request->file->getClientOriginalExtension();
+                $request['bukti_fisik']    = $fileName;
+
+                $save = DB::table('jabatan_fungsional')
+                            ->where('id_jabatan_fungsional', $request->id_jabatan_fungsional)
+                            ->update([
+                                'jabatan_fungsional' => $request->jabatan_fungsional,
+                                'nomor_sk' => $request->nomor_sk, 
+                                'terhitung_mulai_tanggal' => $request->terhitung_mulai_tanggal,
+                                'kelebihan_pengajaran' => $request->kelebihan_pengajaran,
+                                'kelebihan_penelitian' => $request->kelebihan_penelitian,
+                                'kelebihan_pengabdian_masyarakat' => $request->kelebihan_pengabdian_masyarakat,
+                                'kelebihan_kegiatan_penunjang' => $request->kelebihan_kegiatan_penunjang,
+                                'bukti_fisik_desc' => $request->bukti_fisik_desc,
+                                'bukti_fisik' => $request->bukti_fisik
                             ]);
+
+                if ($save) {
+                    if ($request->file) {
+                        $request->file->move(base_path().'/public/assets/bukti_fisik/', $fileName);
+                    }
+                }
+            }else{
+
+                $save = DB::table('jabatan_fungsional')
+                            ->where('id_jabatan_fungsional', $request->id_jabatan_fungsional)
+                            ->update([
+                                'jabatan_fungsional' => $request->jabatan_fungsional,
+                                'nomor_sk' => $request->nomor_sk, 
+                                'terhitung_mulai_tanggal' => $request->terhitung_mulai_tanggal,
+                                'kelebihan_pengajaran' => $request->kelebihan_pengajaran,
+                                'kelebihan_penelitian' => $request->kelebihan_penelitian,
+                                'kelebihan_pengabdian_masyarakat' => $request->kelebihan_pengabdian_masyarakat,
+                                'kelebihan_kegiatan_penunjang' => $request->kelebihan_kegiatan_penunjang,
+                                'bukti_fisik_desc' => $request->bukti_fisik_desc,
+                        ]);
+            }
 
         return redirect('/profile/jabatanFungsional');
 
     }
 
-    public function deleteJabatanFungsional(request $request) {
+    public function drop(request $request) {
 
         $jabatanFungsional = MJabatanFungsional::find($request->id_jabatan_fungsional);
 
         $success = $jabatanFungsional->delete();
 
     }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 }

@@ -26,52 +26,52 @@
                 {!! csrf_field() !!}
                 
 
-                {!! Form::open(array('route' => 'putrequest','files'=>true)) !!}
+                {!! Form::open(array('route' => 'postDosen','files'=>true)) !!}
                 <div class="box-body">  
 
-                    <div class="form-group hide">
-                      <label>id edit</label>
-                      <input type="text" class="form-control" id="id_edit" name="id_edit" value="1">
-                    </div>
-
-                    <div class="form-group hide">
-                      <label>id</label>
-                      <input type="text" class="form-control" id="id_user" name="id_user" value="">
+                    <div class="form-group" hidden>
+                      <label>id prodi</label>
+                      <input type="text" class="form-control" id="id_prodi" name="id_prodi" value="{{ $id_prodi }}">
                     </div>
 
                     <div class="form-group">
                       <label>Username</label>
-                      <input type="text" class="form-control" id="username" name="username" placeholder="Masukkan Username" value="">
+                      <input type="text" class="form-control" id="username" name="username" placeholder="Masukkan Username" value="" required>
+                    </div>
+
+                    <div class="form-group">
+                      <label>Password</label>
+                      <input type="password" class="form-control" id="password" name="password" placeholder="Masukkan Password" value="" required>
                     </div>
 
                     <div class="form-group">
                       <label>Jenis Kelamin</label>
-                      <input type="text" class="form-control" id="jenis_kelamin" name="jenis_kelamin" placeholder="Masukkan Jenis Kelamin" value="">
+                      <input type="text" class="form-control" id="jenis_kelamin" name="jenis_kelamin" placeholder="Masukkan Jenis Kelamin" value="" required>
                     </div>
 
                     <div class="form-group">
                       <label>Tempat Lahir</label>
-                      <input type="text" class="form-control" id="tempat_lahir" name="tempat_lahir" placeholder="Masukkan Tempat Lahir" value="">
+                      <input type="text" class="form-control" id="tempat_lahir" name="tempat_lahir" placeholder="Masukkan Tempat Lahir" value="" required>
                     </div>
 
                     <div class="form-group">
                       <label>Tanggal Lahir (TTTT-BB-HH)</label>
-                      <input type="text" class="form-control" id="tanggal_lahir" name="tanggal_lahir" placeholder="Masukkan Tanggal Lahir" value="">
+                      <input type="text" class="form-control" id="tanggal_lahir" name="tanggal_lahir" placeholder="Masukkan Tanggal Lahir" value="" required>
                     </div>
 
                     <div class="form-group">
                       <label>Agama</label>
-                      <input type="text" class="form-control" id="agama" name="agama" placeholder="Masukkan agama" value="">
+                      <input type="text" class="form-control" id="agama" name="agama" placeholder="Masukkan agama" value="" required>
                     </div>
 
                     <div class="form-group">
                       <label>Kewarganegaraan</label>
-                      <input type="text" class="form-control" id="kewarganegaraan" name="kewarganegaraan" placeholder="Masukkan kewarganegaraan" value="">
+                      <input type="text" class="form-control" id="kewarganegaraan" name="kewarganegaraan" placeholder="Masukkan kewarganegaraan" value="" required>
                     </div>
 
                     <div class="form-group has-feedback">
                       <label>Photo Profile</label>
-                      {!! Form::file('image_file', array('required' => 'required')) !!}
+                      {!! Form::file('image_file', array()) !!}
                     </div>
   
                 </div>
@@ -95,19 +95,14 @@
                 
                 <div class="box-body">  
 
-                    <div class="form-group hide">
-                      <label>id edit</label>
-                      <input type="text" class="form-control" id="id_edit" name="id_edit" value="2">
-                    </div>
-
-                    <div class="form-group hide">
-                      <label>id</label>
-                      <input type="text" class="form-control" id="id_user" name="id_user" value="">
-                    </div>
-
                     <div class="form-group">
                       <label>NIP</label>
                       <input type="text" class="form-control" id="nip" name="nip" placeholder="Masukkan NIP" value="">
+                    </div>
+
+                    <div class="form-group">
+                      <label>NIDN</label>
+                      <input type="text" class="form-control" id="nidn" name="nidn" placeholder="Masukkan NIDN" value="">
                     </div>
 
                     <div class="form-group">
@@ -155,16 +150,6 @@
                 </div>
 
                 <div class="box-body">  
-
-                    <div class="form-group hide">
-                      <label>id edit</label>
-                      <input type="text" class="form-control" id="id_edit" name="id_edit" value="3">
-                    </div>
-
-                    <div class="form-group hide">
-                      <label>id</label>
-                      <input type="text" class="form-control" id="id_user" name="id_user" value="">
-                    </div>
 
                     <div class="form-group">
                       <label>Email</label>
@@ -244,16 +229,6 @@
                 
                 <div class="box-body">  
 
-                    <div class="form-group hide">
-                      <label>id edit</label>
-                      <input type="text" class="form-control" id="id_edit" name="id_edit" value="4">
-                    </div>
-
-                    <div class="form-group hide">
-                      <label>id</label>
-                      <input type="text" class="form-control" id="id_user" name="id_user" value="">
-                    </div>
-
                     <div class="form-group">
                       <label>Nama Ibu Kandung</label>
                       <input type="text" class="form-control" id="nama_ibu_kandung" name="nama_ibu_kandung" placeholder="Masukkan Nama Ibu Kandung" value="">
@@ -294,7 +269,7 @@
           
         </section>
 
-        <!-- KELUARGA -->
+        <!-- LAIN - LAIN -->
 
         <section class="content">
           
@@ -302,20 +277,10 @@
             <div class="col-md-6">
               <div class="box box-primary">
                 <div class="box-header with-border">
-                  <h3 class="box-title">KELUARGA</h3>
+                  <h3 class="box-title">Lain - Lain</h3>
                 </div>
                
                 <div class="box-body">  
-
-                    <div class="form-group hide">
-                      <label>id edit</label>
-                      <input type="text" class="form-control" id="id_edit" name="id_edit" value="5">
-                    </div>
-
-                    <div class="form-group hide">
-                      <label>id</label>
-                      <input type="text" class="form-control" id="id_user" name="id_user" value="">
-                    </div>
 
                     <div class="form-group">
                       <label>NPWP</label>

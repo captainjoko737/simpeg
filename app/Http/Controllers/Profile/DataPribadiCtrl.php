@@ -139,6 +139,7 @@ class DataPribadiCtrl extends Controller {
             $update = MKepegawaian::where('id_user', '=', $request->id_user)
                         ->update([
                             'nip' => $request->nip,
+                            'nidn' => $request->nidn,
                             'nomor_sk_cpns' => $request->nomor_sk_cpns,
                             'sk_cpns_terhitung_mulai_tanggal' => $request->sk_cpns_terhitung_mulai_tanggal,
                             'nomor_sk_pns' => $request->nomor_sk_pns,

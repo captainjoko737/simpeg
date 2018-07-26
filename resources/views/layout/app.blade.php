@@ -31,8 +31,10 @@
 
   <!-- Google Font -->
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic">
-  <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+  <link rel="stylesheet" href="{{ url('assets/bower_components/jquery-ui.css') }}">
   @yield('css')
+  <link rel="stylesheet" href="{{ url('assets/bower_components/datatables/jquery.dataTables.min.css') }} ">
+  <link rel="stylesheet" href="{{ url('assets/bower_components/datatables/buttons.dataTables.min.css') }}">
 </head>
 <body class="hold-transition skin-blue sidebar-mini">
 <div class="wrapper">
@@ -48,9 +50,9 @@
   <!-- /.content-wrapper -->
   <footer class="main-footer">
     <div class="pull-right hidden-xs">
-      <b>Version</b> 1.0
+      <b>Version</b> : 1.1
     </div>
-    <strong>Copyright &copy; 2017.</strong> All rights
+    <strong>Copyright &copy; 2018.</strong> All rights
     reserved.
   </footer>
 
@@ -61,13 +63,8 @@
 <script src="{{ url('assets/bower_components/jquery/dist/jquery.min.js') }}"></script>
 <!-- jQuery UI 1.11.4 -->
 <!-- <script src="{{ url('assets/bower_components/jquery-ui/jquery-ui.min.js') }}"></script> -->
-<script
-  src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"
-  integrity="sha256-VazP97ZCwtekAsvgPBSUwPFKdrwD3unUfSGVYrahUqU="
-  crossorigin="anonymous"></script>
-<!-- Resolve conflict in jQuery UI tooltip with Bootstrap tooltip -->
-<script>
-  $.widget.bridge('uibutton', $.ui.button);
+
+  <!-- $.widget.bridge('uibutton', $.ui.button); -->
 </script>
 <!-- Bootstrap 3.3.7 -->
 <script src="{{ url('assets/bower_components/bootstrap/dist/js/bootstrap.min.js') }}"></script>
@@ -86,6 +83,45 @@
 <!-- FastClick -->
 <script src="{{ url('assets/bower_components/fastclick/lib/fastclick.js') }}"></script>
 @yield('js')
+
+<script type="text/javascript">
+  
+   $(document).ready(function() {
+        $('#example').DataTable( {
+            dom: 'Bfrtip',
+            scrollX: true,
+            buttons: [
+                
+            ]
+        } );
+    } );
+
+   $(document).ready(function() {
+        $('#example-2').DataTable( {
+            dom: 'Bfrtip',
+            scrollX: true,
+            buttons: [
+                
+            ]
+        } );
+    } );
+
+</script>
+
+<script type="text/javascript">
+
+console.log('SIDE BAR');
+
+</script>
+
+<script src="{{ url('assets/bower_components/datatables/jquery.dataTables.min.js') }}"></script>
+<script src="{{ url('assets/bower_components/datatables/dataTables.buttons.min.js') }}"></script>
+<script src="{{ url('assets/bower_components/datatables/buttons.flash.min.js') }}"></script>
+<script src="{{ url('assets/bower_components/datatables/jszip.min.js') }}"></script>
+<script src="{{ url('assets/bower_components/datatables/pdfmake.min.js') }}"></script>
+<script src="{{ url('assets/bower_components/datatables/vfs_fonts.js') }}"></script>
+<script src="{{ url('assets/bower_components/datatables/buttons.html5.min.js') }}"></script>
+<script src="{{ url('assets/bower_components/datatables/buttons.print.min.js') }}"></script>
 <!-- AdminLTE App -->
 <script src="{{ url('assets/dist/js/adminlte.min.js') }}"></script>
 <!-- AdminLTE dashboard demo (This is only for demo purposes) -->

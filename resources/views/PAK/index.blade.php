@@ -37,13 +37,14 @@
           <div class="box">
             <div class="box-header">
               <h3 class="box-title"></h3>
+              <div class="button pull-left">
+                <a type="button" class="btn btn-success btn-md" href="/PAK/penanggung">Pengaturan Penanggung Jawab</a>
+              </div>
               <div class="box-tools">
                 <div class="input-group input-group-sm" style="width: 150px;">
                   <!-- <input type="text" name="table_search" class="form-control pull-right" placeholder="Search"> -->
 
-                  <div class="button pull-right">
-                    <!-- <button type="submit" class="btn btn-primary btn-sm" onclick="add()"><i class="fa fa-plus"></i> Tambah</button> -->
-                  </div>
+                  
                 </div>
               </div>
             </div>
@@ -68,31 +69,34 @@
               </div>
               @endif
 
-              <table class="table table-striped">
-                <tr>
-                  <th style="width:'5%'">No</th>
-                  <th>Nama</th>
-                  <th>NIP</th>
-                  <th>Jenis Kelamin</th>
-                  <th>Agama</th>
-                  <th>Kewarganegaraan</th>
-                  <th>Aksi</th>
-                </tr>
-
-                @foreach ($result as $key => $value)
-                
+              <table id="example" class="display nowrap" style="width:99%">
+                <thead>
                   <tr>
-                    <td>{{ $key + 1 }}</td>
-                    <td>{{ $value->nama }}</td>
-                    <td>{{ $value->nip }}</td>
-                    <td>{{ $value->jenis_kelamin }}</td>
-                    <td>{{ $value->agama }}</td>
-                    <td>{{ $value->kewarganegaraan }}</td>
-                    <td> <button class="btn btn-sm btn-success" onclick="detail({{ $value->id_user }})"><i class="fa fa-search"></i> Detail PAK</button></td>
+                    <th>Nama</th>
+                    <th>NIP</th>
+                    <th>Jenis Kelamin</th>
+                    <th>Agama</th>
+                    <th>Kewarganegaraan</th>
+                    <th>Angka Kredit</th>
+                    <th>Aksi</th>
                   </tr>
+                <thead>
 
-                @endforeach
-               
+                <tbody>
+                  @foreach ($result as $key => $value)
+                  
+                    <tr>
+                      <td>{{ $value->nama }}</td>
+                      <td>{{ $value->nip }}</td>
+                      <td>{{ $value->jenis_kelamin }}</td>
+                      <td>{{ $value->agama }}</td>
+                      <td>{{ $value->kewarganegaraan }}</td>
+                      <td>{{ $value->angka_kredit }}</td>
+                      <td> <button class="btn btn-sm btn-success" onclick="detail({{ $value->id_user }})"><i class="fa fa-search"></i> Detail PAK</button></td>
+                    </tr>
+
+                  @endforeach
+                </tbody>
                 
               </table>
             </div>

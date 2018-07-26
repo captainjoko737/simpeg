@@ -7,9 +7,11 @@ use Illuminate\Http\Request;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 use App\Http\Controllers\UserChecker;
+use App\Http\Controllers\PAK\BidangACtrl;
 use Illuminate\Support\Facades\Auth;
 use App\User;
 use DB;
+use PDF;
 
 class PakCtrl extends Controller {
     
@@ -27,9 +29,22 @@ class PakCtrl extends Controller {
         ->where('id_prodi', '=', $id_prodi)
         ->get();
 
-        $data['result'] = $result;
+        foreach ($result as $key => $value) {
+            $count = 0;
 
-        // return $data;
+            $bidangA = (new BidangACtrl)->GetData($value->id_user);
+            $count += $bidangA['jumlahBidangA'];
+
+            $bidangC = (new BidangCCtrl)->GetData($value->id_user);
+            $count += $bidangC['jumlahBidangC'];
+
+            $bidangD = (new BidangDCtrl)->GetData($value->id_user);
+            $count += $bidangD['jumlahBidangD'];
+
+            $result[$key]->angka_kredit = $count;
+        }
+
+        $data['result'] = $result;
 
         return view('PAK.index', $data);
     }
@@ -45,224 +60,372 @@ class PakCtrl extends Controller {
         ->where('id_user', '=', $id)
         ->get();
 
+        $dataDosen = DB::table('users')
+        ->where('users.id_user', '=', $id)
+        ->join('kepegawaian', 'kepegawaian.id_user', '=', 'users.id_user')
+        ->select('users.nama', 'kepegawaian.nip')
+        ->get();
+
+        $pangkat = DB::table('kepangkatan')
+        ->where('id_user', '=', $id)
+        ->orderBy('id_kepangkatan', 'DESC')
+        ->select('golongan_pangkat')
+        ->get();
+
+        $dataDosen[0]->pangkat = $pangkat[0]->golongan_pangkat;
+
+        $jabatan_fungsional = DB::table('jabatan_fungsional')
+        ->where('id_user', '=', $id)
+        ->orderBy('id_jabatan_fungsional', 'DESC')
+        ->select('jabatan_fungsional')
+        ->get();
+
+        $dataDosen[0]->jabatan_fungsional = $jabatan_fungsional[0]->jabatan_fungsional;
+
+        $dataDosen[0]->id_user = (int)$id;
+        // return $dataDosen;
+
+        $data['data_dosen'] = $dataDosen[0];
         $data['pendidikanFormal'] = $pendidikanFormal;
 
-                                                                        # PELAKSANAAN PENDIDIKAN
-
-        $pelaksPendidikan = DB::table('pelaksanaan_pendidikan')
-        ->orderBy('semester', 'DESC')
-        ->where('id_user', '=', $id)
+        $penanggung = DB::table('penanggung_jawab')
+        ->where('id_penanggung_jawab', '=', 1)
         ->get();
 
-        $pelaksPendidikanCount = DB::table('pelaksanaan_pendidikan')
-        ->selectRaw('sum(angka_kredit) as sum')
-        ->where('id_user', '=', $id)
-        ->get();
+        $data['penanggung'] = $penanggung[0];
+        
 
-        // return $pelaksPendidikanCount;
+                                                                   # PELAKSANAAN PENDIDIKAN
 
-        $pelaksPendidikanCount = $pelaksPendidikanCount[0]->sum;
+        $bidangA = (new BidangACtrl)->GetData($id); 
 
-        $data['pelaksPendidikanCount'] = $pelaksPendidikanCount;
+        $data['bahanPengajaranCount'] = $bidangA['bahanPengajaranCount'];
+        $data['bahanPengajaran'] = $bidangA['bahanPengajaran']; 
+        $data['pelaksPendidikan'] = $bidangA['pelaksPendidikan']; 
+        $data['pelaksPendidikanCount'] = $bidangA['pelaksPendidikanCount'];
+        $data['bimbinganSeminarCount'] = $bidangA['bimbinganSeminarCount'];
+        $data['bimbinganSeminar'] = $bidangA['bimbinganSeminar'];
+        $data['bimbinganKkpCount'] = $bidangA['bimbinganKkpCount'];
+        $data['bimbinganKkp'] = $bidangA['bimbinganKkp'];
+        $data['bimbinganLaporanAkhirCount'] = $bidangA['bimbinganLaporanAkhirCount'];
+        $data['bimbinganLaporanAkhir'] = $bidangA['bimbinganLaporanAkhir'];
+        $data['pengujiCount'] = $bidangA['pengujiCount'];
+        $data['penguji'] = $bidangA['penguji'];
+        $data['programKuliahCount'] = $bidangA['programKuliahCount'];
+        $data['programKuliah'] = $bidangA['programKuliah'];
+        $data['kegiatanMahasiswaCount'] = $bidangA['kegiatanMahasiswaCount'];
+        $data['kegiatanMahasiswa'] = $bidangA['kegiatanMahasiswa'];
+        $data['jabatanPimpinanCount'] = $bidangA['jabatanPimpinanCount'];
+        $data['jabatanPimpinan'] = $bidangA['jabatanPimpinan'];
+        $data['pengembanganDiriCount'] = $bidangA['pengembanganDiriCount'];
+        $data['pengembanganDiri'] = $bidangA['pengembanganDiri'];
 
-        $data['pelaksPendidikan'] = $pelaksPendidikan;
 
-        // return $pelaksPendidikan;
+        $data['jumlahBidangA'] = $bidangA['jumlahBidangA'];
 
-                                                                        # MEMBIMBING SEMINAR
+                                                                   # PENGABDIAN
 
-        $bimbinganSeminar = DB::table('bimbingan_seminar')
-        ->join('periode', 'periode.id_periode', '=', 'bimbingan_seminar.periode')
-        ->where('id_user', '=', $id)
-        ->orderBy('semester', 'DESC')
-        ->get();
+        $bidangC = (new BidangCCtrl)->GetData($id);
 
-        // return $bimbinganSeminar;
-        $bimbinganSeminarCount = DB::table('bimbingan_seminar')
-        ->selectRaw('sum(angka_kredit) as sum')
-        ->where('id_user', '=', $id)
-        ->get();
-
-        $bimbinganSeminarCount = $bimbinganSeminarCount[0]->sum;
-
-        $data['bimbinganSeminarCount'] = $bimbinganSeminarCount;
-
-        $data['bimbinganSeminar'] = $bimbinganSeminar;
-
-        // return $pelaksPendidikan;
-
-                                                                        # MEMBIMBING KKP
-
-        $bimbinganKkp = DB::table('bimbingan_kkp')
-        ->join('periode', 'periode.id_periode', '=', 'bimbingan_kkp.periode')
-        ->where('id_user', '=', $id)
-        ->orderBy('semester', 'DESC')
-        ->get();
-
-        $bimbinganKkpCount = DB::table('bimbingan_kkp')
-        ->selectRaw('sum(angka_kredit) as sum')
-        ->where('id_user', '=', $id)
-        ->get();
-
-        $bimbinganKkpCount = $bimbinganKkpCount[0]->sum;
-
-        $data['bimbinganKkpCount'] = $bimbinganKkpCount;
-
-        $data['bimbinganKkp'] = $bimbinganKkp;
-
-        // return $pelaksPendidikan;
-
-                                                                        # MEMBIMBING UJIAN AKHIR
-
-        $bimbinganLaporanAkhir = DB::table('bimbingan_Laporan_akhir')
-        ->join('periode', 'periode.id_periode', '=', 'bimbingan_Laporan_akhir.periode')
-        ->where('id_user', '=', $id)
-        ->orderBy('semester', 'DESC')
-        ->get();
-
-        $bimbinganLaporanAkhirCount = 0;
-
-        foreach ($bimbinganLaporanAkhir as $key => $value) {
-            $resultMahasiswa = DB::table('mahasiswa_bimbingan')
-            ->where('id_bimbingan_laporan_akhir', '=', $value->id_bimbingan_laporan_akhir)
-            ->get();
-
-            $bimbinganLaporanAkhir[$key]->mahasiswa = $resultMahasiswa;
-
-            if ($value->status == 1) {
-                $bimbinganLaporanAkhir[$key]->status = 'Selesai';
-            }else{
-                $bimbinganLaporanAkhir[$key]->status = 'Belum Selesai';
-            }
-
-            if ($value->jenis_bimbingan == 'Pembimbing Utama') {
-                $bimbinganLaporanAkhir[$key]->jumlah = count($resultMahasiswa);
-            }else{
-                $bimbinganLaporanAkhir[$key]->jumlah = count($resultMahasiswa) / 2;
-            }
-
-            $bimbinganLaporanAkhirCount += $bimbinganLaporanAkhir[$key]->jumlah;
-        }
-
-        $data['bimbinganLaporanAkhirCount'] = $bimbinganLaporanAkhirCount;
-
-        $data['bimbinganLaporanAkhir'] = $bimbinganLaporanAkhir;
+        $data['pengabdianACount'] = $bidangC['pengabdianACount'];
+        $data['pengabdianA'] = $bidangC['pengabdianA'];
+        $data['pengabdianBCount'] = $bidangC['pengabdianBCount'];
+        $data['pengabdianB'] = $bidangC['pengabdianB'];
+        $data['pengabdianCCount'] = $bidangC['pengabdianCCount'];
+        $data['pengabdianC'] = $bidangC['pengabdianC'];
+        $data['pengabdianDCount'] = $bidangC['pengabdianDCount'];
+        $data['pengabdianD'] = $bidangC['pengabdianD'];
+        $data['pengabdianECount'] = $bidangC['pengabdianECount'];
+        $data['pengabdianE'] = $bidangC['pengabdianE'];
+        $data['jumlahBidangC'] = $bidangC['jumlahBidangC'];
 
         // return $data;
 
-                                                                        # PENGUJI UJIAN AKHIR
+                                                                    # PENUNJANG
 
-        $penguji = DB::table('penguji_ujian_akhir')
-        ->join('periode', 'periode.id_periode', '=', 'penguji_ujian_akhir.periode')
-        ->where('id_user', '=', $id)
-        ->orderBy('semester', 'DESC')
-        ->get();
+        $bidangD = (new BidangDCtrl)->GetData($id);
 
-        $pengujiCount = 0;
-
-        foreach ($penguji as $key => $value) {
-            $resultMahasiswa = DB::table('mahasiswa_ujian_akhir')
-            ->where('id_penguji_ujian_akhir', '=', $value->id_penguji_ujian_akhir)
-            ->get();
-
-            $penguji[$key]->mahasiswa = $resultMahasiswa;
-
-            // if ($value->status == 1) {
-            //     $penguji[$key]->status = 'Selesai';
-            // }else{
-            //     $penguji[$key]->status = 'Belum Selesai';
-            // }
-
-            $penguji[$key]->jumlah = count($resultMahasiswa);
-
-            $pengujiCount += $penguji[$key]->jumlah;
-        }
-
-        $data['pengujiCount'] = $pengujiCount;
-
-        $data['penguji'] = $penguji;
-
-        // return $data;
-
-                                                                        # KEGIATAN MAHASISWA
-
-        $kegiatanMahasiswa = DB::table('kegiatan_mahasiswa')
-        ->join('periode', 'periode.id_periode', '=', 'kegiatan_mahasiswa.periode')
-        ->where('id_user', '=', $id)
-        ->orderBy('semester', 'DESC')
-        ->get();
-
-        $data['kegiatanMahasiswaCount'] = count($kegiatanMahasiswa);
-
-        $data['kegiatanMahasiswa'] = $kegiatanMahasiswa;
-
-        // return $data;
-
-                                                                       # PROGRAM KULIAH
-
-
-        $programKuliah = DB::table('program_kuliah')
-        ->join('periode', 'periode.id_periode', '=', 'program_kuliah.periode')
-        ->where('id_user', '=', $id)
-        ->get();
-
-        $jumlah = 0;
-
-        foreach ($programKuliah as $key => $value) {
-            $jumlah += $value->volume_kegiatan * 2;
-        }
-
-        $data['programKuliahCount'] = $jumlah;
-
-        $data['programKuliah'] = $programKuliah;
-
-        // return $data;
-
-                                                                       # BAHAN PENGAJARAN
-
-
-        $bahanPengajaran = DB::table('bahan_pengajaran')
-        ->where('id_user', '=', $id)
-        ->get();
-
-        $jumlah = 0;
-
-        foreach ($bahanPengajaran as $key => $value) {
-            $jumlah += $value->volume_kegiatan * 5;
-        }
-
-        $data['bahanPengajaranCount'] = $jumlah;
-
-        $data['bahanPengajaran'] = $bahanPengajaran;
+        $data['penunjangACount'] = $bidangD['penunjangACount'];
+        $data['penunjangA'] = $bidangD['penunjangA'];
+        $data['penunjangBCount'] = $bidangD['penunjangBCount'];
+        $data['penunjangB'] = $bidangD['penunjangB'];
+        $data['penunjangCCount'] = $bidangD['penunjangCCount'];
+        $data['penunjangC'] = $bidangD['penunjangC'];
+        $data['penunjangDCount'] = $bidangD['penunjangDCount'];
+        $data['penunjangD'] = $bidangD['penunjangD'];
+        $data['penunjangECount'] = $bidangD['penunjangECount'];
+        $data['penunjangE'] = $bidangD['penunjangE'];
+        $data['penunjangFCount'] = $bidangD['penunjangFCount'];
+        $data['penunjangF'] = $bidangD['penunjangF'];
+        $data['penunjangGCount'] = $bidangD['penunjangGCount'];
+        $data['penunjangG'] = $bidangD['penunjangG'];
+        $data['penunjangHCount'] = $bidangD['penunjangHCount'];
+        $data['penunjangH'] = $bidangD['penunjangH'];
+        $data['penunjangICount'] = $bidangD['penunjangICount'];
+        $data['penunjangI'] = $bidangD['penunjangI'];
+        $data['penunjangJCount'] = $bidangD['penunjangJCount'];
+        $data['penunjangJ'] = $bidangD['penunjangJ']; 
+        $data['jumlahBidangD'] = $bidangD['jumlahBidangD'];
 
         // return $data;
 
         return view('PAK.detail', $data);
     }
 
+    public function Aprints($id, $nama, $nip, $pangkat, $jabatan_fungsional, $unit, $tgl_cetak, $jabatan_struktural) {
+
+        $data_penanggung = [
+            'nama'               => $nama,
+            'nip'                => $nip,
+            'pangkat'            => str_replace('*', '/', $pangkat),
+            'jabatan_fungsional' => $jabatan_fungsional,
+            'unit'               => $unit,
+            'tanggal_cetak'      => $tgl_cetak,
+            'jabatan_struktural' => $jabatan_struktural
+        ];
+
+        $data['data_penanggung'] = $data_penanggung;
+        // return $data_penanggung;
+
+        $pendidikanFormal = DB::table('pendidikan_formal')
+        ->where('id_user', '=', $id)
+        ->get();
+        $data['pendidikanFormal'] = $pendidikanFormal;
+
+        // return $pendidikanFormal;
+
+        $dataDosen = DB::table('users')
+        ->where('users.id_user', '=', $id)
+        ->join('kepegawaian', 'kepegawaian.id_user', '=', 'users.id_user')
+        ->select('users.nama', 'kepegawaian.nip', 'kepegawaian.nidn')
+        ->get();
+
+        $pangkat = DB::table('kepangkatan')
+        ->where('id_user', '=', $id)
+        ->orderBy('id_kepangkatan', 'DESC')
+        ->select('golongan_pangkat')
+        ->get();
+
+        $dataDosen[0]->pangkat = $pangkat[0]->golongan_pangkat;
+
+        $jabatan_fungsional = DB::table('jabatan_fungsional')
+        ->where('id_user', '=', $id)
+        ->orderBy('id_jabatan_fungsional', 'DESC')
+        ->select('jabatan_fungsional')
+        ->get();
+
+        $dataDosen[0]->jabatan_fungsional = $jabatan_fungsional[0]->jabatan_fungsional;
+
+        $data['data_dosen'] = $dataDosen[0];
+
+                                                                       # PELAKSANAAN PENDIDIKAN
+
+        $bidangA = (new BidangACtrl)->GetData($id); 
+
+        $data['bahanPengajaranCount'] = $bidangA['bahanPengajaranCount'];
+        $data['bahanPengajaran'] = $bidangA['bahanPengajaran']; 
+        $data['pelaksPendidikan'] = $bidangA['pelaksPendidikan']; 
+        $data['pelaksPendidikanCount'] = $bidangA['pelaksPendidikanCount'];
+        $data['bimbinganSeminarCount'] = $bidangA['bimbinganSeminarCount'];
+        $data['bimbinganSeminar'] = $bidangA['bimbinganSeminar'];
+        $data['bimbinganKkpCount'] = $bidangA['bimbinganKkpCount'];
+        $data['bimbinganKkp'] = $bidangA['bimbinganKkp'];
+        $data['bimbinganLaporanAkhirCount'] = $bidangA['bimbinganLaporanAkhirCount'];
+        $data['bimbinganLaporanAkhir'] = $bidangA['bimbinganLaporanAkhir'];
+        $data['pengujiCount'] = $bidangA['pengujiCount'];
+        $data['penguji'] = $bidangA['penguji'];
+        $data['programKuliahCount'] = $bidangA['programKuliahCount'];
+        $data['programKuliah'] = $bidangA['programKuliah'];
+        $data['kegiatanMahasiswaCount'] = $bidangA['kegiatanMahasiswaCount'];
+        $data['kegiatanMahasiswa'] = $bidangA['kegiatanMahasiswa'];
+        $data['jabatanPimpinanCount'] = $bidangA['jabatanPimpinanCount'];
+        $data['jabatanPimpinan'] = $bidangA['jabatanPimpinan'];
+        $data['pengembanganDiriCount'] = $bidangA['pengembanganDiriCount'];
+        $data['pengembanganDiri'] = $bidangA['pengembanganDiri'];
+
+        $data['jumlahBidangA'] = $bidangA['jumlahBidangA'];
+
+        $pdf = PDF::loadView('PAK.Apdfview', $data);
+        $pdf->setPaper('A4', 'potrait');
+        return $pdf->stream('PAK.Apdfview.pdf');
+    }
+
+    public function Cprints($id, $nama, $nip, $pangkat, $jabatan_fungsional, $unit, $tgl_cetak, $jabatan_struktural) {
+        // return 'GOOD';
+
+        $data_penanggung = [
+            'nama'               => $nama,
+            'nip'                => $nip,
+            'pangkat'            => str_replace('*', '/', $pangkat),
+            'jabatan_fungsional' => $jabatan_fungsional,
+            'unit'               => $unit,
+            'tanggal_cetak'      => $tgl_cetak,
+            'jabatan_struktural' => $jabatan_struktural
+        ];
+
+        $data['data_penanggung'] = $data_penanggung;
+        // return $data_penanggung;
+
+        $dataDosen = DB::table('users')
+        ->where('users.id_user', '=', $id)
+        ->join('kepegawaian', 'kepegawaian.id_user', '=', 'users.id_user')
+        ->select('users.nama', 'kepegawaian.nip')
+        ->get();
+
+        $pangkat = DB::table('kepangkatan')
+        ->where('id_user', '=', $id)
+        ->orderBy('id_kepangkatan', 'DESC')
+        ->select('golongan_pangkat')
+        ->get();
+
+        $dataDosen[0]->pangkat = $pangkat[0]->golongan_pangkat;
+
+        $jabatan_fungsional = DB::table('jabatan_fungsional')
+        ->where('id_user', '=', $id)
+        ->orderBy('id_jabatan_fungsional', 'DESC')
+        ->select('jabatan_fungsional')
+        ->get();
+
+        $dataDosen[0]->jabatan_fungsional = $jabatan_fungsional[0]->jabatan_fungsional;
+
+        // return $dataDosen;
+
+        $data['data_dosen'] = $dataDosen[0];
+
+                                                                       # PENGABDIAN
+
+        $bidangC = (new BidangCCtrl)->GetData($id);
+
+        $data['pengabdianACount'] = $bidangC['pengabdianACount'];
+        $data['pengabdianA'] = $bidangC['pengabdianA'];
+        $data['pengabdianBCount'] = $bidangC['pengabdianBCount'];
+        $data['pengabdianB'] = $bidangC['pengabdianB'];
+        $data['pengabdianCCount'] = $bidangC['pengabdianCCount'];
+        $data['pengabdianC'] = $bidangC['pengabdianC'];
+        $data['pengabdianDCount'] = $bidangC['pengabdianDCount'];
+        $data['pengabdianD'] = $bidangC['pengabdianD'];
+        $data['pengabdianECount'] = $bidangC['pengabdianECount'];
+        $data['pengabdianE'] = $bidangC['pengabdianE'];
+        $data['jumlahBidangC'] = $bidangC['jumlahBidangC'];
+
+        $pdf = PDF::loadView('PAK.Cpdfview', $data);
+        $pdf->setPaper('A4', 'potrait');
+        return $pdf->stream('PAK.Cpdfview.pdf');
+    }
+
+    public function Dprints($id, $nama, $nip, $pangkat, $jabatan_fungsional, $unit, $tgl_cetak, $jabatan_struktural) {
+        // return 'GOOD';
+        
+
+            // return $items;
+        // view()->share('KHS',$items);
+
+        $data_penanggung = [
+            'nama'               => $nama,
+            'nip'                => $nip,
+            'pangkat'            => str_replace('*', '/', $pangkat),
+            'jabatan_fungsional' => $jabatan_fungsional,
+            'unit'               => $unit,
+            'tanggal_cetak'      => $tgl_cetak,
+            'jabatan_struktural' => $jabatan_struktural
+        ];
+
+        $data['data_penanggung'] = $data_penanggung;
+        // return $data_penanggung;
+
+        $dataDosen = DB::table('users')
+        ->where('users.id_user', '=', $id)
+        ->join('kepegawaian', 'kepegawaian.id_user', '=', 'users.id_user')
+        ->select('users.nama', 'kepegawaian.nip')
+        ->get();
+
+        $pangkat = DB::table('kepangkatan')
+        ->where('id_user', '=', $id)
+        ->orderBy('id_kepangkatan', 'DESC')
+        ->select('golongan_pangkat')
+        ->get();
+
+        $dataDosen[0]->pangkat = $pangkat[0]->golongan_pangkat;
+
+        $jabatan_fungsional = DB::table('jabatan_fungsional')
+        ->where('id_user', '=', $id)
+        ->orderBy('id_jabatan_fungsional', 'DESC')
+        ->select('jabatan_fungsional')
+        ->get();
+
+        $dataDosen[0]->jabatan_fungsional = $jabatan_fungsional[0]->jabatan_fungsional;
+
+        // return $dataDosen;
+
+        $data['data_dosen'] = $dataDosen[0];
+
+                                                                       # PENUNJANG
+
+        $bidangD = (new BidangDCtrl)->GetData($id);
+
+        $data['penunjangACount'] = $bidangD['penunjangACount'];
+        $data['penunjangA'] = $bidangD['penunjangA'];
+        $data['penunjangBCount'] = $bidangD['penunjangBCount'];
+        $data['penunjangB'] = $bidangD['penunjangB'];
+        $data['penunjangCCount'] = $bidangD['penunjangCCount'];
+        $data['penunjangC'] = $bidangD['penunjangC'];
+        $data['penunjangDCount'] = $bidangD['penunjangDCount'];
+        $data['penunjangD'] = $bidangD['penunjangD'];
+        $data['penunjangECount'] = $bidangD['penunjangECount'];
+        $data['penunjangE'] = $bidangD['penunjangE'];
+        $data['penunjangFCount'] = $bidangD['penunjangFCount'];
+        $data['penunjangF'] = $bidangD['penunjangF'];
+        $data['penunjangGCount'] = $bidangD['penunjangGCount'];
+        $data['penunjangG'] = $bidangD['penunjangG'];
+        $data['penunjangHCount'] = $bidangD['penunjangHCount'];
+        $data['penunjangH'] = $bidangD['penunjangH'];
+        $data['penunjangICount'] = $bidangD['penunjangICount'];
+        $data['penunjangI'] = $bidangD['penunjangI'];
+        $data['penunjangJCount'] = $bidangD['penunjangJCount'];
+        $data['penunjangJ'] = $bidangD['penunjangJ']; 
+        $data['jumlahBidangD'] = $bidangD['jumlahBidangD'];
+
+        
+
+        $pdf = PDF::loadView('PAK.Dpdfview', $data);
+        $pdf->setPaper('A4', 'potrait');
+        return $pdf->stream('PAK.Dpdfview.pdf');
+    }
+
+    public function penanggung() {
+
+        $data['title'] = 'Penanggung Jawab PAK';
+
+        $user = (new UserChecker)->checkUser(Auth::user());
+        $data['user'] = $user;
+
+        $id_prodi = Auth::user()->id_prodi;
+
+        $penanggung = DB::table('penanggung_jawab')
+        ->where('id_penanggung_jawab', '=', 1)
+        ->get();
+
+        $data['penanggung'] = $penanggung[0];
+
+        return view('PAK.penanggung.edit', $data);
+    }
+
+    public function updatePenanggung(request $request) {
+
+        $save = DB::table('penanggung_jawab')
+            ->where('id_penanggung_jawab', 1)
+            ->update([
+                'nama' => $request->nama,
+                'nip' => $request->nip,
+                'pangkat' => $request->pangkat,
+                'jabatan_fungsional' => $request->jabatan_fungsional,
+                'unit_kerja' => $request->unit_kerja,
+        ]);
+
+        return redirect('/PAK');
+    }
+
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 

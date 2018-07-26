@@ -10,6 +10,7 @@ use App\Http\Controllers\UserChecker;
 use Illuminate\Support\Facades\Auth;
 use App\User;
 use App\Models\MKepangkatan;
+use DB;
 
 class KepangkatanCtrl extends Controller {
     
@@ -29,11 +30,11 @@ class KepangkatanCtrl extends Controller {
 
         $data['kepangkatan'] = $resultKepangkatan;
 
-        return view('profile.kepangkatan', $data);
+        return view('profile.kepangkatan.index', $data);
 
     }
 
-    public function tambahKepangkatan() {
+    public function add() {
                 
         $data['title'] = 'Tambah Kepangkatan';
 
@@ -44,22 +45,43 @@ class KepangkatanCtrl extends Controller {
         
         $data['id_user'] = $id_user;
 
-        return view('profile.tambahKepangkatan', $data);
+        return view('profile.kepangkatan.add', $data);
 
     }
 
-    public function AddKepangkatan(request $request) {
+    public function create(request $request) {
 
-        $kepangkatan = MKepangkatan::create($request->all());
+        if ($request->file) {
+            $fileName = time().'.'.$request->file->getClientOriginalExtension();
+            $request['bukti_fisik']    = $fileName;
 
-        if ($kepangkatan) {
-            return redirect('/profile/kepangkatan');
-        }else{
-            return redirect('/profile/kepangkatan/add');
+            $save = DB::table('kepangkatan')->insert(
+                [
+                    'id_user' => $request->id_user, 
+                    'golongan_pangkat' => $request->golongan_pangkat,
+                    'nomor_sk_kepangkatan' => $request->nomor_sk_kepangkatan, 
+                    'tanggal_sk' => $request->tanggal_sk,
+                    'terhitung_mulai_tanggal' => $request->terhitung_mulai_tanggal,
+                    'angka_kredit' => $request->angka_kredit,
+                    'masa_kerja_tahun' => $request->masa_kerja_tahun,
+                    'masa_kerja_bulan' => $request->masa_kerja_bulan,
+                    'bukti_fisik_desc' => $request->bukti_fisik_desc,
+                    'bukti_fisik' => $request->bukti_fisik
+                ]
+            );
+
+            if ($save) {
+                if ($request->file) {
+                    $request->file->move(base_path().'/public/assets/bukti_fisik/', $fileName);
+                }
+            }
         }
+
+        return redirect('/profile/kepangkatan');
+
     }
 
-    public function EditKepangkatan($id_kepangkatan) {
+    public function edit($id_kepangkatan) {
                 
         $data['title'] = 'Edit Kepangkatan';
 
@@ -73,28 +95,56 @@ class KepangkatanCtrl extends Controller {
         $data['kepangkatan'] = $kepangkatan;
         $data['id_user'] = $id_user;
 
-        return view('profile.editKepangkatan', $data);
+        return view('profile.kepangkatan.edit', $data);
 
     }
 
-    public function SaveKepangkatan(request $request) {
+    public function save(request $request) {
 
-        $update = MKepangkatan::where('id_kepangkatan', '=', $request->id_kepangkatan)
-                        ->update([
-                            'golongan_pangkat' => $request->golongan_pangkat,
-                            'nomor_sk_kepangkatan' => $request->nomor_sk_kepangkatan,
-                            'tanggal_sk' => $request->tanggal_sk,
-                            'terhitung_mulai_tanggal' => $request->terhitung_mulai_tanggal,
-                            'angka_kredit' => $request->angka_kredit,
-                            'masa_kerja_tahun' => $request->masa_kerja_tahun,
-                            'masa_kerja_bulan' => $request->masa_kerja_bulan,
+        if ($request->file) {
+                $fileName = time().'.'.$request->file->getClientOriginalExtension();
+                $request['bukti_fisik']    = $fileName;
+
+                $save = DB::table('kepangkatan')
+                            ->where('id_kepangkatan', $request->id_kepangkatan)
+                            ->update([
+                                'golongan_pangkat' => $request->golongan_pangkat,
+                                'nomor_sk_kepangkatan' => $request->nomor_sk_kepangkatan,
+                                'tanggal_sk' => $request->tanggal_sk,
+                                'terhitung_mulai_tanggal' => $request->terhitung_mulai_tanggal,
+                                'angka_kredit' => $request->angka_kredit,
+                                'masa_kerja_tahun' => $request->masa_kerja_tahun,
+                                'masa_kerja_bulan' => $request->masa_kerja_bulan,
+                                'bukti_fisik_desc' => $request->bukti_fisik_desc,
+                                'bukti_fisik' => $request->bukti_fisik
                             ]);
+
+                if ($save) {
+                    if ($request->file) {
+                        $request->file->move(base_path().'/public/assets/bukti_fisik/', $fileName);
+                    }
+                }
+            }else{
+
+                $save = DB::table('kepangkatan')
+                            ->where('id_kepangkatan', $request->id_kepangkatan)
+                            ->update([
+                                'golongan_pangkat' => $request->golongan_pangkat,
+                                'nomor_sk_kepangkatan' => $request->nomor_sk_kepangkatan,
+                                'tanggal_sk' => $request->tanggal_sk,
+                                'terhitung_mulai_tanggal' => $request->terhitung_mulai_tanggal,
+                                'angka_kredit' => $request->angka_kredit,
+                                'masa_kerja_tahun' => $request->masa_kerja_tahun,
+                                'masa_kerja_bulan' => $request->masa_kerja_bulan,
+                                'bukti_fisik_desc' => $request->bukti_fisik_desc
+                        ]);
+            }
 
         return redirect('/profile/kepangkatan');
 
     }
 
-    public function deleteKepangkatan(request $request) {
+    public function drop(request $request) {
 
         $kepangkatan = MKepangkatan::find($request->id_kepangkatan);
 

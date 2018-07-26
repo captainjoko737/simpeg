@@ -50,30 +50,34 @@
             </div>
             <!-- /.box-header -->
             <div class="box-body table-responsive no-padding">
-              <table class="table table-hover">
-                <tr>
-                  <th>Nama Pelaksanaan</th>
-                  <th class="text-center">Semester</th>
-                  <th class="text-center">Jumlah SKS</th>
-                  <th class="text-center">Angka Kredit</th>
-                  <th class="text-center">Periode</th>
-                  <th>Bukti Fisik</th>
-                </tr>
-
-                @foreach ($result as $key => $value)
-                
+              <table id="example" class="display nowrap" style="width:100%">
+                <thead>
                   <tr>
-                    <td>{{ $value['nama_pelaksanaan'] }}</td>
-                    <td class="text-center">{{ $value['semester'] }}</td>
-                    <td class="text-center">{{ $value['jumlah_sks'] }} </td>
-                    <td class="text-center">{!! $value['angka_kredit'] !!}</td>
-                    <td class="text-center">{!! $value['periode'] !!}</td>
-                    <td><a href="{{ url('assets/bukti_fisik/').'/'.$value['bukti_fisik'] }}" target="_blank">{!! $value['bukti_fisik_desc'] !!}</a> </td>
-                    <td><button class="btn btn-sm btn-info" onclick="edit({{$value['id_pelaksanaan_pendidikan']}})"><i class="fa fa-pencil"></i> Edit</button> <button class="btn btn-sm btn-danger" onclick="ButtonDelete({{ $value['id_pelaksanaan_pendidikan'] }})"><i class="fa fa-trash"></i> Delete</button></td>
+                    <th>Nama Pelaksanaan</th>
+                    <th class="text-center">Semester</th>
+                    <th class="text-center">Jumlah SKS</th>
+                    <th class="text-center">Angka Kredit</th>
+                    <th class="text-center">Periode</th>
+                    <th>Bukti Fisik</th>
+                    <th>Aksi</th>
                   </tr>
+                </thead>
 
-                @endforeach
-                
+                <tbody>
+                  @foreach ($result as $key => $value)
+                  
+                    <tr>
+                      <td>{{ $value['nama_pelaksanaan'] }}</td>
+                      <td class="text-center">{{ $value['semester'] }}</td>
+                      <td class="text-center">{{ $value['jumlah_sks'] }} </td>
+                      <td class="text-center">{!! $value['angka_kredit'] !!}</td>
+                      <td class="text-center">{!! $value['periode'] !!}</td>
+                      <td><a href="{{ url('assets/bukti_fisik/').'/'.$value['bukti_fisik'] }}" target="_blank">{!! $value['bukti_fisik_desc'] !!}</a> </td>
+                      <td><button class="btn btn-sm btn-info" onclick="edit({{$value['id_pelaksanaan_pendidikan']}})"><i class="fa fa-pencil"></i></button> <button class="btn btn-sm btn-danger" onclick="ButtonDelete({{ $value['id_pelaksanaan_pendidikan'] }})"><i class="fa fa-trash"></i></button></td>
+                    </tr>
+
+                  @endforeach
+                </tbody>
               </table>
             </div>
             <!-- /.box-body -->

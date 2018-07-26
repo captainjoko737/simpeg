@@ -8,7 +8,7 @@
         <!-- <small>Control panel</small> -->
       </h1>
       <ol class="breadcrumb">
-        <li class="active"><a href="#"><i class="fa fa-chain"></i> Pengabdian</a></li>
+        <li class="active"><a href="#"><i class="fa fa-chain"></i> Bimbingan</a></li>
       </ol>
     </section>
 

@@ -134,6 +134,11 @@
                     </div>
 
                     <div class="form-group">
+                      <label>NIDN</label>
+                      <input type="text" class="form-control" id="nidn" name="nidn" placeholder="Masukkan NIDN" value="{{ $kepegawaian['nidn']}}">
+                    </div>
+
+                    <div class="form-group">
                       <label>Nomor SK CPNS</label>
                       <input type="text" class="form-control" id="nomor_sk_cpns" name="nomor_sk_cpns" placeholder="Masukkan Nomor SK CPNS" value="{{ $kepegawaian['nomor_sk_cpns']}}">
                     </div>
