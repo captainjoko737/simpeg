@@ -306,6 +306,43 @@ Route::group(['middleware' => 'auth'], function(){
 	Route::delete('/penunjang/j/delete', 'Penunjang\PenunjangCtrl@drop_J');
 
 
+
+
+															# PENELITIAN
+
+	# PENELITIAN B 
+	Route::get('/penelitian/b/index', 'Penelitian\PenelitianBCtrl@index');
+	Route::get('/penelitian/b/add', 'Penelitian\PenelitianBCtrl@add');
+	Route::post('postPenelitianB',['as'=>'postPenelitianB','uses'=>'Penelitian\PenelitianBCtrl@create']);
+	Route::get('/penelitian/b/edit/{id}', 'Penelitian\PenelitianBCtrl@edit');
+	Route::put('putPenelitianB',['as'=>'putPenelitianB','uses'=>'Penelitian\PenelitianBCtrl@save']);
+	Route::delete('/penelitian/b/delete', 'Penelitian\PenelitianBCtrl@drop');
+
+	# PENELITIAN C 
+	Route::get('/penelitian/c/index', 'Penelitian\PenelitianCCtrl@index');
+	Route::get('/penelitian/c/add', 'Penelitian\PenelitianCCtrl@add');
+	Route::post('postPenelitianC',['as'=>'postPenelitianC','uses'=>'Penelitian\PenelitianCCtrl@create']);
+	Route::get('/penelitian/c/edit/{id}', 'Penelitian\PenelitianCCtrl@edit');
+	Route::put('putPenelitianC',['as'=>'putPenelitianC','uses'=>'Penelitian\PenelitianCCtrl@save']);
+	Route::delete('/penelitian/c/delete', 'Penelitian\PenelitianCCtrl@drop');
+
+	# PENELITIAN D
+	Route::get('/penelitian/d/index', 'Penelitian\PenelitianDCtrl@index');
+	Route::get('/penelitian/d/add', 'Penelitian\PenelitianDCtrl@add');
+	Route::post('postPenelitianD',['as'=>'postPenelitianD','uses'=>'Penelitian\PenelitianDCtrl@create']);
+	Route::get('/penelitian/d/edit/{id}', 'Penelitian\PenelitianDCtrl@edit');
+	Route::put('putPenelitianD',['as'=>'putPenelitianD','uses'=>'Penelitian\PenelitianDCtrl@save']);
+	Route::delete('/penelitian/d/delete', 'Penelitian\PenelitianDCtrl@drop');
+
+	# PENELITIAN E
+	Route::get('/penelitian/e/index', 'Penelitian\PenelitianECtrl@index');
+	Route::get('/penelitian/e/add', 'Penelitian\PenelitianECtrl@add');
+	Route::post('postPenelitianE',['as'=>'postPenelitianE','uses'=>'Penelitian\PenelitianECtrl@create']);
+	Route::get('/penelitian/e/edit/{id}', 'Penelitian\PenelitianECtrl@edit');
+	Route::put('putPenelitianE',['as'=>'putPenelitianE','uses'=>'Penelitian\PenelitianECtrl@save']);
+	Route::delete('/penelitian/e/delete', 'Penelitian\PenelitianECtrl@drop');
+
+
 															# ADMIN PRODI
 	# PAK
 	Route::get('/PAK', 'PAK\PakCtrl@indexDosen');

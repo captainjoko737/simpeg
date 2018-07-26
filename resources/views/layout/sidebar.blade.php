@@ -70,7 +70,7 @@
             <li><a href="{{ url('/kegiatan/mahasiswa') }}"><i class="fa fa-circle-o"></i> F. Kegiatan Mahasiswa</a></li>
             <li><a href="{{ url('/program/kuliah') }}"><i class="fa fa-circle-o"></i> G. Program Kuliah</a></li>
             <li><a href="{{ url('/bahan/pengajaran') }}"><i class="fa fa-circle-o"></i> H. Bahan Pengajaran</a></li>
-            <li class=""><a href="{{ url('/pendidikan/orasi') }}"><i class="fa fa-circle-o"></i> I. Orasi Ilmiah</a></li>
+            <!-- <li class=""><a href="{{ url('/pendidikan/orasi') }}"><i class="fa fa-circle-o"></i> I. Orasi Ilmiah</a></li> -->
             <li class=""><a href="{{ url('/pendidikan/jabatan') }}"><i class="fa fa-circle-o"></i> J. Menduduki Jabatan</a></li>
             <li class=""><a href="{{ url('/pendidikan/pengembangan') }}"><i class="fa fa-circle-o"></i> M. Kegiatan Pengembangan</a></li>
           </ul>
@@ -86,10 +86,10 @@
           <ul class="treeview-menu">
             <li><a href="{{ url('/penelitian/publikasiKarya') }}"><i class="fa fa-circle-o"></i>A. Menghasilkan Karya Ilmiah </a></li>
             <!-- <li><a href="{{ url('/penelitian/penelitian') }}"><i class="fa fa-circle-o"></i> Penelitian</a></li> -->
-            <li><a href="{{ url('/penelitian/penelitian') }}"><i class="fa fa-circle-o"></i>B. Menyadur Buku Ilmiah</a></li>
-            <li><a href="{{ url('/penelitian/penelitian') }}"><i class="fa fa-circle-o"></i>C. Menyunting Karya Ilmiah</a></li>
-            <li><a href="{{ url('/penelitian/penelitian') }}"><i class="fa fa-circle-o"></i>D. karya teknologi </a></li>
-            <li><a href="{{ url('/penelitian/penelitian') }}"><i class="fa fa-circle-o"></i>E. Rancangan Karya Seni</a></li>
+            <li><a href="{{ url('/penelitian/b/index') }}"><i class="fa fa-circle-o"></i>B. Menyadur Buku Ilmiah</a></li>
+            <li><a href="{{ url('/penelitian/c/index') }}"><i class="fa fa-circle-o"></i>C. Menyunting Karya Ilmiah</a></li>
+            <li><a href="{{ url('/penelitian/d/index') }}"><i class="fa fa-circle-o"></i>D. karya teknologi </a></li>
+            <li><a href="{{ url('/penelitian/e/index') }}"><i class="fa fa-circle-o"></i>E. Rancangan Karya Seni</a></li>
           </ul>
         </li>
 

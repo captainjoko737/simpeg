@@ -85,7 +85,7 @@
               <!-- ./col -->
           </div>
         </div>
-    </div>
+    </section>
     
 @endsection
 
