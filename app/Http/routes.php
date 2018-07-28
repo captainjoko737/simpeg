@@ -348,7 +348,7 @@ Route::group(['middleware' => 'auth'], function(){
 	Route::get('/PAK', 'PAK\PakCtrl@indexDosen');
 	Route::get('/PAK/detail/{id}', 'PAK\PakCtrl@detailDosen');
 	Route::get('/pak/a/prints/{id}/{nama}/{nip}/{pangkat}/{jabatan_fungsional}/{unit}/{tanggal_cetak}/{jabatan_truktural}',array('as'=>'pakAPrints','uses'=>'PAK\PakCtrl@Aprints'));
-
+	Route::get('/pak/b/prints/{id}/{nama}/{nip}/{pangkat}/{jabatan_fungsional}/{unit}/{tanggal_cetak}/{jabatan_truktural}',array('as'=>'pakCPrints','uses'=>'PAK\PakCtrl@Bprints'));
 	Route::get('/pak/c/prints/{id}/{nama}/{nip}/{pangkat}/{jabatan_fungsional}/{unit}/{tanggal_cetak}/{jabatan_truktural}',array('as'=>'pakCPrints','uses'=>'PAK\PakCtrl@Cprints'));
 	Route::get('/pak/d/prints/{id}/{nama}/{nip}/{pangkat}/{jabatan_fungsional}/{unit}/{tanggal_cetak}/{jabatan_truktural}',array('as'=>'pakDPrints','uses'=>'PAK\PakCtrl@Dprints'));
 

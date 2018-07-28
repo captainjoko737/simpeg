@@ -123,6 +123,27 @@ class PakCtrl extends Controller {
 
         $data['jumlahBidangA'] = $bidangA['jumlahBidangA'];
 
+
+                                                                   # PENELITIAN
+
+        $bidangB = (new BidangBCtrl)->GetData($id);
+
+        $data['penelitianA1Count'] = $bidangB['penelitianA1Count'];
+        $data['penelitianA1'] = $bidangB['penelitianA1'];
+        $data['penelitianA2Count'] = $bidangB['penelitianA2Count'];
+        $data['penelitianA2'] = $bidangB['penelitianA2'];
+        $data['penelitianBCount'] = $bidangB['penelitianBCount'];
+        $data['penelitianB'] = $bidangB['penelitianB'];
+        $data['penelitianCCount'] = $bidangB['penelitianCCount'];
+        $data['penelitianC'] = $bidangB['penelitianC'];
+        $data['penelitianDCount'] = $bidangB['penelitianDCount'];
+        $data['penelitianD'] = $bidangB['penelitianD'];
+        $data['penelitianECount'] = $bidangB['penelitianECount'];
+        $data['penelitianE'] = $bidangB['penelitianE'];
+        $data['jumlahBidangB'] = $bidangB['jumlahBidangB'];
+
+        // return $data;
+
                                                                    # PENGABDIAN
 
         $bidangC = (new BidangCCtrl)->GetData($id);
@@ -248,6 +269,75 @@ class PakCtrl extends Controller {
         $pdf = PDF::loadView('PAK.Apdfview', $data);
         $pdf->setPaper('A4', 'potrait');
         return $pdf->stream('PAK.Apdfview.pdf');
+    }
+
+    public function Bprints($id, $nama, $nip, $pangkat, $jabatan_fungsional, $unit, $tgl_cetak, $jabatan_struktural) {
+
+        $data_penanggung = [
+            'nama'               => $nama,
+            'nip'                => $nip,
+            'pangkat'            => str_replace('*', '/', $pangkat),
+            'jabatan_fungsional' => $jabatan_fungsional,
+            'unit'               => $unit,
+            'tanggal_cetak'      => $tgl_cetak,
+            'jabatan_struktural' => $jabatan_struktural
+        ];
+
+        $data['data_penanggung'] = $data_penanggung;
+        // return $data_penanggung;
+
+        $pendidikanFormal = DB::table('pendidikan_formal')
+        ->where('id_user', '=', $id)
+        ->get();
+        $data['pendidikanFormal'] = $pendidikanFormal;
+
+        // return $pendidikanFormal;
+
+        $dataDosen = DB::table('users')
+        ->where('users.id_user', '=', $id)
+        ->join('kepegawaian', 'kepegawaian.id_user', '=', 'users.id_user')
+        ->select('users.nama', 'kepegawaian.nip', 'kepegawaian.nidn')
+        ->get();
+
+        $pangkat = DB::table('kepangkatan')
+        ->where('id_user', '=', $id)
+        ->orderBy('id_kepangkatan', 'DESC')
+        ->select('golongan_pangkat')
+        ->get();
+
+        $dataDosen[0]->pangkat = $pangkat[0]->golongan_pangkat;
+
+        $jabatan_fungsional = DB::table('jabatan_fungsional')
+        ->where('id_user', '=', $id)
+        ->orderBy('id_jabatan_fungsional', 'DESC')
+        ->select('jabatan_fungsional')
+        ->get();
+
+        $dataDosen[0]->jabatan_fungsional = $jabatan_fungsional[0]->jabatan_fungsional;
+
+        $data['data_dosen'] = $dataDosen[0];
+
+                                                                       # PENELITIAN
+
+        $bidangB = (new BidangBCtrl)->GetData($id);
+
+        $data['penelitianA1Count'] = $bidangB['penelitianA1Count'];
+        $data['penelitianA1'] = $bidangB['penelitianA1'];
+        $data['penelitianA2Count'] = $bidangB['penelitianA2Count'];
+        $data['penelitianA2'] = $bidangB['penelitianA2'];
+        $data['penelitianBCount'] = $bidangB['penelitianBCount'];
+        $data['penelitianB'] = $bidangB['penelitianB'];
+        $data['penelitianCCount'] = $bidangB['penelitianCCount'];
+        $data['penelitianC'] = $bidangB['penelitianC'];
+        $data['penelitianDCount'] = $bidangB['penelitianDCount'];
+        $data['penelitianD'] = $bidangB['penelitianD'];
+        $data['penelitianECount'] = $bidangB['penelitianECount'];
+        $data['penelitianE'] = $bidangB['penelitianE'];
+        $data['jumlahBidangB'] = $bidangB['jumlahBidangB'];
+
+        $pdf = PDF::loadView('PAK.Bpdfview', $data);
+        $pdf->setPaper('A4', 'potrait');
+        return $pdf->stream('PAK.Bpdfview.pdf');
     }
 
     public function Cprints($id, $nama, $nip, $pangkat, $jabatan_fungsional, $unit, $tgl_cetak, $jabatan_struktural) {

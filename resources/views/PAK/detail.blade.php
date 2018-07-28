@@ -72,7 +72,7 @@
                           </div>
                           <!-- /.tab-pane -->
                           <div class="tab-pane" id="tab_2">
-                            
+                            @include('PAK.bidang-b')
                           </div>
                           <!-- /.tab-pane -->
                           <div class="tab-pane" id="tab_3">

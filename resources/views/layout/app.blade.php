@@ -50,7 +50,7 @@
   <!-- /.content-wrapper -->
   <footer class="main-footer">
     <div class="pull-right hidden-xs">
-      <b>Version</b> : 1.1
+      <b>Version</b> : 1.2
     </div>
     <strong>Copyright &copy; 2018.</strong> All rights
     reserved.
