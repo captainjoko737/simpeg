@@ -83,7 +83,7 @@
   </table>
   <br><br>
   <center><h5>SURAT PERNYATAAN</h5></center>
-  <center><h5>MELAKSANAKAN KEGIATAN PENUNJANG TRIDHARMA PERGURUAN TINGGI</h5></center>
+  <center><h5>MELAKSANAKAN PENELITIAN</h5></center>
 
   <p>Yang bertanda tangan di bawah ini</p>
   <table class="" id="customers" width="100%">
@@ -148,10 +148,11 @@
   </table>
   
   <br>
-  <p>Sebagai  penunjang tridarma perguruan tinggi  sebagai berikut : </p>
+  <!-- <p>Sebagai  penunjang tridarma perguruan tinggi  sebagai berikut : </p> -->
   <br>
   
-  <h5>A. Menjadi anggota dalam suatu panitia / Badan pada perguruan tinggi</h5>
+  <h5>A. Menghasilkan Karya Ilmiah </h5>
+  <h5><strong>1. Hasil Penelitian atau pemikiran yang dipublikasikan</strong></h5>
 
   <table class="table" id="customers" width="100%">
     <tr>
@@ -165,11 +166,11 @@
       <th>Bukti Fisik</th>
     </tr>
     
-    @foreach ($penunjangA as $key => $value)
+    @foreach ($penelitianA1 as $key => $value)
       <tr>
           <td><center>{{ ++$key }}</center></td>
           <td>{{ $value->nama_kegiatan }}</td>
-          <td>{{ $value->tanggal_kegiatan }}</td>
+          <td>{{ $value->tanggal }}</td>
           <td>{{ $value->satuan_hasil }}</td>
           <td><center>{{ $value->volume_kegiatan }}</center></td>
           <td><center>{{ $value->angka_kredit }}</center></td>
@@ -186,13 +187,13 @@
       <th style="border:0px;"></th>
       <th style="border:0px;"></th>
       <th class="text-center"><strong>Sub Jumlah</strong></th>
-      <th class="text-center"><center>{{ $penunjangACount }}</center></th>
+      <th class="text-center"><center>{{ $penelitianA1Count }}</center></th>
       </tr>
   </table>
 
   <br><br>
 
-  <h5>B. Menjadi anggota panitia / badan pada lembaga pemerintah</h5>
+  <h5><strong>2. Hasil Penelitian atau hasil pemikiran yang tidak dipublikasikan ( tersimpan di perpustakaan perguruan tinggi )</strong></h5>
 
   <table class="table" id="customers" width="100%">
     <tr>
@@ -206,11 +207,11 @@
       <th>Bukti Fisik</th>
     </tr>
     
-    @foreach ($penunjangB as $key => $value)
+    @foreach ($penelitianA2 as $key => $value)
       <tr>
           <td><center>{{ ++$key }}</center></td>
           <td>{{ $value->nama_kegiatan }}</td>
-          <td>{{ $value->tanggal_kegiatan }}</td>
+          <td>{{ $value->tanggal }}</td>
           <td>{{ $value->satuan_hasil }}</td>
           <td><center>{{ $value->volume_kegiatan }}</center></td>
           <td><center>{{ $value->angka_kredit }}</center></td>
@@ -227,13 +228,13 @@
       <th style="border:0px;"></th>
       <th style="border:0px;"></th>
       <th class="text-center"><strong>Sub Jumlah</strong></th>
-      <th class="text-center"><center>{{ $penunjangBCount }}</center></th>
+      <th class="text-center"><center>{{ $penelitianA2Count }}</center></th>
       </tr>
   </table>
 
   <br><br>
 
-  <h5>C. Menjadi anggota organisasi profesi </h5>
+  <h5><strong>B. Menerjemahkan / menyadur buku ilmiah</strong></h5>
 
   <table class="table" id="customers" width="100%">
     <tr>
@@ -247,11 +248,11 @@
       <th>Bukti Fisik</th>
     </tr>
     
-    @foreach ($penunjangC as $key => $value)
+    @foreach ($penelitianB as $key => $value)
       <tr>
           <td><center>{{ ++$key }}</center></td>
           <td>{{ $value->nama_kegiatan }}</td>
-          <td>{{ $value->tanggal_kegiatan }}</td>
+          <td>{{ $value->tanggal }}</td>
           <td>{{ $value->satuan_hasil }}</td>
           <td><center>{{ $value->volume_kegiatan }}</center></td>
           <td><center>{{ $value->angka_kredit }}</center></td>
@@ -268,13 +269,13 @@
       <th style="border:0px;"></th>
       <th style="border:0px;"></th>
       <th class="text-center"><strong>Sub Jumlah</strong></th>
-      <th class="text-center"><center>{{ $penunjangCCount }}</center></th>
+      <th class="text-center"><center>{{ $penelitianBCount }}</center></th>
       </tr>
   </table>
 
   <br><br>
 
-  <h5>D.Mewakili perguruan tinggi / lembaga pemerintah </h5>
+  <h5><strong>C. Mengedit / menyunting karya ilmiah</strong></h5>
 
   <table class="table" id="customers" width="100%">
     <tr>
@@ -288,11 +289,11 @@
       <th>Bukti Fisik</th>
     </tr>
     
-    @foreach ($penunjangD as $key => $value)
+    @foreach ($penelitianC as $key => $value)
       <tr>
           <td><center>{{ ++$key }}</center></td>
           <td>{{ $value->nama_kegiatan }}</td>
-          <td>{{ $value->tanggal_kegiatan }}</td>
+          <td>{{ $value->tanggal }}</td>
           <td>{{ $value->satuan_hasil }}</td>
           <td><center>{{ $value->volume_kegiatan }}</center></td>
           <td><center>{{ $value->angka_kredit }}</center></td>
@@ -309,13 +310,13 @@
       <th style="border:0px;"></th>
       <th style="border:0px;"></th>
       <th class="text-center"><strong>Sub Jumlah</strong></th>
-      <th class="text-center"><center>{{ $penunjangDCount }}</center></th>
+      <th class="text-center"><center>{{ $penelitianCCount }}</center></th>
       </tr>
   </table>
 
   <br><br>
 
-  <h5>E. Menjadi anggota delegasi nasional ke pertemuan internasional </h5>
+  <h5><strong>D. Membuat rencana dan karya teknologi yang dipatenkan</strong></h5>
 
   <table class="table" id="customers" width="100%">
     <tr>
@@ -329,11 +330,11 @@
       <th>Bukti Fisik</th>
     </tr>
     
-    @foreach ($penunjangE as $key => $value)
+    @foreach ($penelitianD as $key => $value)
       <tr>
           <td><center>{{ ++$key }}</center></td>
           <td>{{ $value->nama_kegiatan }}</td>
-          <td>{{ $value->tanggal_kegiatan }}</td>
+          <td>{{ $value->tanggal }}</td>
           <td>{{ $value->satuan_hasil }}</td>
           <td><center>{{ $value->volume_kegiatan }}</center></td>
           <td><center>{{ $value->angka_kredit }}</center></td>
@@ -350,13 +351,13 @@
       <th style="border:0px;"></th>
       <th style="border:0px;"></th>
       <th class="text-center"><strong>Sub Jumlah</strong></th>
-      <th class="text-center"><center>{{ $penunjangECount }}</center></th>
+      <th class="text-center"><center>{{ $penelitianDCount }}</center></th>
       </tr>
   </table>
 
   <br><br>
 
-  <h5>F. Berperan serta aktif dalam pertemuan ilmiah </h5>
+  <h5><strong>E. Membuat rancangan dan karya teknologi, rancangan dan karya seni monumental / seni pertunjukan / karya sastra</strong></h5>
 
   <table class="table" id="customers" width="100%">
     <tr>
@@ -370,18 +371,17 @@
       <th>Bukti Fisik</th>
     </tr>
     
-    @foreach ($penunjangF as $key => $value)
+    @foreach ($penelitianE as $key => $value)
       <tr>
           <td><center>{{ ++$key }}</center></td>
           <td>{{ $value->nama_kegiatan }}</td>
-          <td>{{ $value->tanggal_kegiatan }}</td>
+          <td>{{ $value->tanggal }}</td>
           <td>{{ $value->satuan_hasil }}</td>
           <td><center>{{ $value->volume_kegiatan }}</center></td>
           <td><center>{{ $value->angka_kredit }}</center></td>
           <td><center>{{ $value->angka_kredit * $value->volume_kegiatan }}</center></td>
           <td>{{ $value->bukti_fisik_desc }}</td>
       </tr>
-      
     @endforeach
     <tr>
       <th style="border:0px;"></th>
@@ -391,181 +391,20 @@
       <th style="border:0px;"></th>
       <th style="border:0px;"></th>
       <th class="text-center"><strong>Sub Jumlah</strong></th>
-      <th class="text-center"><center>{{ $penunjangFCount }}</center></th>
+      <th class="text-center"><center>{{ $penelitianECount }}</center></th>
       </tr>
   </table>
 
   <br><br>
 
-  <h5>G. Mendapat penghargaan / tanda jasa </h5>
 
-  <table class="table" id="customers" width="100%">
-    <tr>
-      <th style="width:'1%'"><center>No</center></th>
-      <th>Uraian Kegiatan</th>
-      <th>Tanggal</th>
-      <th><center>Hasil <br> Satuan</center></th>
-      <th class="text-center"><center>Volume <br> Kegiatan</center></th>
-      <th class="text-center"><center>Angka <br> Kredit</center></th>
-      <th class="text-center"><center>Jumlah Angka Kredit</center></th>
-      <th>Bukti Fisik</th>
-    </tr>
-    
-    @foreach ($penunjangG as $key => $value)
-      <tr>
-          <td><center>{{ ++$key }}</center></td>
-          <td>{{ $value->nama_kegiatan }}</td>
-          <td>{{ $value->tanggal_kegiatan }}</td>
-          <td>{{ $value->satuan_hasil }}</td>
-          <td><center>{{ $value->volume_kegiatan }}</center></td>
-          <td><center>{{ $value->angka_kredit }}</center></td>
-          <td><center>{{ $value->angka_kredit * $value->volume_kegiatan }}</center></td>
-          <td>{{ $value->bukti_fisik_desc }}</td>
-      </tr>
-      
-    @endforeach
-    <tr>
-      <th style="border:0px;"></th>
-      <th style="border:0px;"></th>
-      <th style="border:0px;"></th>
-      <th style="border:0px;"></th>
-      <th style="border:0px;"></th>
-      <th style="border:0px;"></th>
-      <th class="text-center"><strong>Sub Jumlah</strong></th>
-      <th class="text-center"><center>{{ $penunjangGCount }}</center></th>
-      </tr>
-  </table>
-
-  <br><br>
-
-  <h5>H. Menulis buku pelajaran SLTA ke bawah yang diterbitkan dan diedarkan secara nasional </h5>
-
-  <table class="table" id="customers" width="100%">
-    <tr>
-      <th style="width:'1%'"><center>No</center></th>
-      <th>Uraian Kegiatan</th>
-      <th>Tanggal</th>
-      <th><center>Hasil <br> Satuan</center></th>
-      <th class="text-center"><center>Volume <br> Kegiatan</center></th>
-      <th class="text-center"><center>Angka <br> Kredit</center></th>
-      <th class="text-center"><center>Jumlah Angka Kredit</center></th>
-      <th>Bukti Fisik</th>
-    </tr>
-    
-    @foreach ($penunjangH as $key => $value)
-      <tr>
-          <td><center>{{ ++$key }}</center></td>
-          <td>{{ $value->nama_kegiatan }}</td>
-          <td>{{ $value->tanggal_kegiatan }}</td>
-          <td>{{ $value->satuan_hasil }}</td>
-          <td><center>{{ $value->volume_kegiatan }}</center></td>
-          <td><center>{{ $value->angka_kredit }}</center></td>
-          <td><center>{{ $value->angka_kredit * $value->volume_kegiatan }}</center></td>
-          <td>{{ $value->bukti_fisik_desc }}</td>
-      </tr>
-      
-    @endforeach
-    <tr>
-      <th style="border:0px;"></th>
-      <th style="border:0px;"></th>
-      <th style="border:0px;"></th>
-      <th style="border:0px;"></th>
-      <th style="border:0px;"></th>
-      <th style="border:0px;"></th>
-      <th class="text-center"><strong>Sub Jumlah</strong></th>
-      <th class="text-center"><center>{{ $penunjangHCount }}</center></th>
-      </tr>
-  </table>
-
-  <br><br>
-
-  <h5>I. Mempunyai prestasi di bidang olahraga / humaniora </h5>
-
-  <table class="table" id="customers" width="100%">
-    <tr>
-      <th style="width:'1%'"><center>No</center></th>
-      <th>Uraian Kegiatan</th>
-      <th>Tanggal</th>
-      <th><center>Hasil <br> Satuan</center></th>
-      <th class="text-center"><center>Volume <br> Kegiatan</center></th>
-      <th class="text-center"><center>Angka <br> Kredit</center></th>
-      <th class="text-center"><center>Jumlah Angka Kredit</center></th>
-      <th>Bukti Fisik</th>
-    </tr>
-    
-    @foreach ($penunjangI as $key => $value)
-      <tr>
-          <td><center>{{ ++$key }}</center></td>
-          <td>{{ $value->nama_kegiatan }}</td>
-          <td>{{ $value->tanggal_kegiatan }}</td>
-          <td>{{ $value->satuan_hasil }}</td>
-          <td><center>{{ $value->volume_kegiatan }}</center></td>
-          <td><center>{{ $value->angka_kredit }}</center></td>
-          <td><center>{{ $value->angka_kredit * $value->volume_kegiatan }}</center></td>
-          <td>{{ $value->bukti_fisik_desc }}</td>
-      </tr>
-      
-    @endforeach
-    <tr>
-      <th style="border:0px;"></th>
-      <th style="border:0px;"></th>
-      <th style="border:0px;"></th>
-      <th style="border:0px;"></th>
-      <th style="border:0px;"></th>
-      <th style="border:0px;"></th>
-      <th class="text-center"><strong>Sub Jumlah</strong></th>
-      <th class="text-center"><center>{{ $penunjangICount }}</center></th>
-      </tr>
-  </table>
-
-  <br><br>
-
-  <h5>J. Keanggotaan dalam tim penilaian </h5>
-
-  <table class="table" id="customers" width="100%">
-    <tr>
-      <th style="width:'1%'"><center>No</center></th>
-      <th>Uraian Kegiatan</th>
-      <th>Tanggal</th>
-      <th><center>Hasil <br> Satuan</center></th>
-      <th class="text-center"><center>Volume <br> Kegiatan</center></th>
-      <th class="text-center"><center>Angka <br> Kredit</center></th>
-      <th class="text-center"><center>Jumlah Angka Kredit</center></th>
-      <th>Bukti Fisik</th>
-    </tr>
-    
-    @foreach ($penunjangJ as $key => $value)
-      <tr>
-          <td><center>{{ ++$key }}</center></td>
-          <td>{{ $value->nama_kegiatan }}</td>
-          <td>{{ $value->tanggal_kegiatan }}</td>
-          <td>{{ $value->satuan_hasil }}</td>
-          <td><center>{{ $value->volume_kegiatan }}</center></td>
-          <td><center>{{ $value->angka_kredit }}</center></td>
-          <td><center>{{ $value->angka_kredit * $value->volume_kegiatan }}</center></td>
-          <td>{{ $value->bukti_fisik_desc }}</td>
-      </tr>
-      
-    @endforeach
-    <tr>
-      <th style="border:0px;"></th>
-      <th style="border:0px;"></th>
-      <th style="border:0px;"></th>
-      <th style="border:0px;"></th>
-      <th style="border:0px;"></th>
-      <th style="border:0px;"></th>
-      <th class="text-center"><strong>Sub Jumlah</strong></th>
-      <th class="text-center"><center>{{ $penunjangJCount }}</center></th>
-      </tr>
-  </table>
-
-  <br>
+  
 
  <table class="table" id="customers" width="100%">
 
       <tr>
-      <th style="border:0px;"><strong>Jumlah Bidang D </strong></th>
-      <th style="border:0px;"><center>{{ $jumlahBidangD }}</center></th>
+      <th style="border:0px;"><strong>Jumlah Bidang B </strong></th>
+      <th style="border:0px;"><center>{{ $jumlahBidangB }}</center></th>
       <hr>
       </tr>
   </table>
