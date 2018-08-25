@@ -42,7 +42,9 @@
                   <!-- <input type="text" name="table_search" class="form-control pull-right" placeholder="Search"> -->
 
                   <div class="button pull-right">
-                    <button type="submit" class="btn btn-primary btn-sm" onclick="add()"><i class="fa fa-plus"></i> Tambah</button>
+                    @if($user['is_admin_prodi'] == "hidden")
+                        <button type="submit" class="btn btn-primary btn-sm" onclick="add()"><i class="fa fa-plus"></i> Tambah</button>
+                    @endif
                   </div>
                 </div>
               </div>
@@ -97,7 +99,17 @@
                       <td>{{ $value->tempat_lahir }} {{ $value->tanggal_lahir }}</td>
                       <td>{{ $value->agama }}</td>
                       <td>{{ $value->kewarganegaraan }}</td>
-                      <td> <button class="btn btn-sm btn-info" onclick="edit({{$value->id_user }})"><i class="fa fa-pencil" alt="lala"></i></button> <button class="btn btn-sm btn-danger" onclick="ButtonDelete({{ $value->id_user }})"><i class="fa fa-trash"></i></button></td>
+                      <td> 
+
+                          <button class="btn btn-sm btn-success" onclick="view({{$value->id_user }})"><i class="fa fa-user" alt="lala"></i></button> 
+                            
+                            @if($user['is_admin_prodi'] == "hidden")
+                                <button class="btn btn-sm btn-info" onclick="edit({{$value->id_user }})"><i class="fa fa-pencil" alt="lala"></i></button>
+                            @endif
+                           
+                          
+                          <button class="btn btn-sm btn-danger" onclick="ButtonDelete({{ $value->id_user }})"><i class="fa fa-trash"></i></button>
+                      </td>
                     </tr>
 
                   @endforeach
@@ -125,6 +137,11 @@
     function edit(id) {
         console.log('EDIT ', id);
         location.href='/dosen/edit/'+id;
+    }
+
+    function view(id) {
+        console.log('EDIT ', id);
+        location.href='/dosen/view/'+id;
     }
 
     var _token = $('input[name="_token"]').val();

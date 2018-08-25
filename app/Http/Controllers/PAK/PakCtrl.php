@@ -46,6 +46,30 @@ class PakCtrl extends Controller {
 
         $data['result'] = $result;
 
+        if ($user['is_admin'] == 'hidden') {
+            $result = DB::table('users')
+            ->join('kepegawaian', 'kepegawaian.id_user', '=', 'users.id_user')
+            // ->where('id_prodi', '=', $id_prodi)
+            ->get();
+
+            foreach ($result as $key => $value) {
+                $count = 0;
+
+                $bidangA = (new BidangACtrl)->GetData($value->id_user);
+                $count += $bidangA['jumlahBidangA'];
+
+                $bidangC = (new BidangCCtrl)->GetData($value->id_user);
+                $count += $bidangC['jumlahBidangC'];
+
+                $bidangD = (new BidangDCtrl)->GetData($value->id_user);
+                $count += $bidangD['jumlahBidangD'];
+
+                $result[$key]->angka_kredit = $count;
+            }
+
+            $data['result'] = $result;
+        }
+
         return view('PAK.index', $data);
     }
 

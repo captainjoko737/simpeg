@@ -137,6 +137,10 @@
         <!-- <li class=" {{ $user['is_admin'] }}"><a href="{{ url('/PAK') }}"><i class="fa fa-book"></i> Layanan PAK</a></li> -->
         <li class=" {{ $user['is_admin'] }}"><a href="{{ url('/PAK') }}"><i class="fa fa-book"></i> Layanan PAK</a></li>
 
+        <li class=" {{ $user['is_admin_prodi'] }}"><a href="{{ url('/dosen') }}"><i class="fa fa-mortar-board"></i> Dosen</a></li>
+        <!-- <li class=" {{ $user['is_admin'] }}"><a href="{{ url('/PAK') }}"><i class="fa fa-book"></i> Layanan PAK</a></li> -->
+        <li class=" {{ $user['is_admin_prodi'] }}"><a href="{{ url('/PAK') }}"><i class="fa fa-book"></i> Layanan PAK</a></li>
+
         
         <!-- <li class="{{ Request::segment(1) === 'logout' ? 'active' : '' }} {{ $user['is_logout'] }}" ><a href="{{ url('/prodi') }}"><i class="fa fa-question"></i> <span>Apendix</span></a></li> -->
         <li class="{{ Request::segment(1) === 'logout' ? 'active' : '' }} {{ $user['is_admin_prodi'] }}" ><a href="{{ url('/admin') }}"><i class="fa fa-users"></i> <span>Admin Prodi</span></a></li>

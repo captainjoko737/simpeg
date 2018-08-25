@@ -360,6 +360,7 @@ Route::group(['middleware' => 'auth'], function(){
 	Route::get('/dosen/add', 'Dosen\DosenCtrl@add');
 	Route::post('postDosen',['as'=>'postDosen','uses'=>'Dosen\DosenCtrl@Create']);
 	Route::get('/dosen/edit/{id}', 'Dosen\DosenCtrl@edit');
+	Route::get('/dosen/view/{id}', 'Dosen\DosenCtrl@view');
 	Route::put('putDosen',['as'=>'putDosen','uses'=>'Dosen\DosenCtrl@save']);
 	Route::delete('/dosen/delete', 'Dosen\DosenCtrl@drop');
 

@@ -20,14 +20,14 @@
             <div class="box-header with-border">
               <h3 class="box-title"><strong>Profile</strong></h3>
               <div class="box-tools">
-                <button class="btn btn-sm btn-success" onclick="edit({{ $profile['id_user'] }}, 1)"><i class="fa fa-edit"></i></button>
+                <!-- <button class="btn btn-sm btn-success" onclick="edit({{ $profile['id_user'] }}, 1)"><i class="fa fa-edit"></i></button> -->
               </div>
             </div>
             <!-- /.box-header -->
             <div class="box-body">
 
               <div class="box-body box-profile">
-                <img class="profile-user-img img-responsive img-circle" src="{{ url('assets/photo_profile/').'/'.Auth::user()->photo }}" style="width:30%" >
+                <img class="profile-user-img img-responsive img-circle" src="{{ url('assets/photo_profile/').'/'.$profile->photo }}" style="width:30%" >
               </div>
 
               <table class="table table-bordered table-striped">
@@ -56,7 +56,6 @@
                   <td style="width: 30%"><strong>Kewarganegaraan</strong></td>
                   <td style="width: 50%">{{ $profile['kewarganegaraan'] }}</td>   
                 </tr>
-
                 <tr>
                   <td style="width: 30%"><strong>Prodi</strong></td>
                   <td style="width: 50%">{{ $prodi->kode_prodi }} / {{ $prodi->nama_prodi }}</td>   
@@ -73,7 +72,6 @@
                     <td style="width: 50%">{{ $value->jenjang_studi }} / {{ $value->gelar_akademik }}</td>   
                   </tr>
                 @endforeach
-                
 
       
               </table>
@@ -86,7 +84,7 @@
             <div class="box-header">
               <h3 class="box-title"><strong>Kepegawaian</strong></h3>
               <div class="box-tools">
-                <button class="btn btn-sm btn-success" onclick="edit({{ $profile['id_user'] }}, 2)"><i class="fa fa-edit"></i></button>
+                <!-- <button class="btn btn-sm btn-success" onclick="edit({{ $profile['id_user'] }}, 2)"><i class="fa fa-edit"></i></button> -->
               </div>
             </div>
             <!-- /.box-header -->
@@ -133,7 +131,7 @@
               <h3 class="box-title"><strong>Alamat Kontak</strong></h3>
 
               <div class="box-tools">
-                <button class="btn btn-sm btn-success" onclick="edit({{ $profile['id_user'] }}, 3)"><i class="fa fa-edit"></i></button>
+                <!-- <button class="btn btn-sm btn-success" onclick="edit({{ $profile['id_user'] }}, 3)"><i class="fa fa-edit"></i></button> -->
               </div>
             </div>
             <!-- /.box-header -->
@@ -193,7 +191,7 @@
             <div class="box-header">
               <h3 class="box-title"><strong>Keluarga</strong></h3>
               <div class="box-tools">
-                <button class="btn btn-sm btn-success" onclick="edit({{ $profile['id_user'] }}, 4)"><i class="fa fa-edit"></i></button>
+                <!-- <button class="btn btn-sm btn-success" onclick="edit({{ $profile['id_user'] }}, 4)"><i class="fa fa-edit"></i></button> -->
               </div>
             </div>
             <!-- /.box-header -->
@@ -234,7 +232,7 @@
             <div class="box-header">
               <h3 class="box-title"><strong>Lain-lain</strong></h3>
               <div class="box-tools">
-                <button class="btn btn-sm btn-success" onclick="edit({{ $profile['id_user'] }}, 5)"><i class="fa fa-edit"></i></button>
+                <!-- <button class="btn btn-sm btn-success" onclick="edit({{ $profile['id_user'] }}, 5)"><i class="fa fa-edit"></i></button> -->
               </div>
             </div>
             <!-- /.box-header -->

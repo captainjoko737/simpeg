@@ -25,7 +25,7 @@
             <div class="icon">
               <i class="fa fa-book"></i>
             </div>
-            <a href="#" class="small-box-footer">Detail info <i class="fa fa-arrow-circle-right"></i></a>
+            <!-- <a href="#" class="small-box-footer">Detail info <i class="fa fa-arrow-circle-right"></i></a> -->
           </div>
         </div>
         
@@ -41,7 +41,7 @@
             <div class="icon">
               <i class="fa fa-users"></i>
             </div>
-            <a href="#" class="small-box-footer">Detail info <i class="fa fa-arrow-circle-right"></i></a>
+            <!-- <a href="#" class="small-box-footer">Detail info <i class="fa fa-arrow-circle-right"></i></a> -->
           </div>
         </div>        
       </div>
@@ -115,9 +115,11 @@
         categoryAxis.dashLength = 5;
         categoryAxis.gridPosition = "start";
 
+
         // value
         var valueAxis = new AmCharts.ValueAxis();
         valueAxis.title = "Jumlah Dosen";
+        valueAxis.integersOnly = true;
         valueAxis.dashLength = 5;
         chart.addValueAxis(valueAxis);
 

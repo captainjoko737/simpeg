@@ -38,6 +38,26 @@ class DosenCtrl extends Controller {
 
         $data['result'] = $result;
 
+        if ($user['is_admin'] == 'hidden') {
+            $result = DB::table('users')
+            // ->where('id_prodi', '=', $id_prodi)
+            ->where('is_admin', '=', 0)
+            ->get();
+
+            foreach ($result as $key => $value) {
+                $pendidikan = DB::table('pendidikan_formal')
+                ->where('id_user', '=', $value->id_user)
+                ->orderBy('id_pendidikan_formal', 'DESC')
+                ->first();
+
+                $result[$key]->pendidikan = $pendidikan;
+            }
+
+            $data['result'] = $result;
+        }
+
+        // return $data;
+
         return view('dosen.index', $data);
     }
 
@@ -57,7 +77,7 @@ class DosenCtrl extends Controller {
 
     public function Create(request $request) {
 
-        // return $request->all();
+        return $request->all();
 
         $fileName = time().'.'.$request->image_file->getClientOriginalExtension();
         $request['photo']    = $fileName;
@@ -267,6 +287,46 @@ class DosenCtrl extends Controller {
                             ]);
                             
         return redirect('/dosen');
+
+    }
+
+    public function view($id) {
+        
+        $data['title'] = 'Data Pribadi Dosen';
+
+        $user = (new UserChecker)->checkUser(Auth::user());
+        $data['user'] = $user;
+        // $id_user = Auth::user()->id_user;
+        $queryProfile  = User::query();
+        $queryProfile  = $queryProfile->join('alamat_kontak', 'alamat_kontak.id_user', '=', 'users.id_user');
+        $queryProfile  = $queryProfile->join('kepegawaian', 'kepegawaian.id_user', '=', 'users.id_user');
+        $queryProfile  = $queryProfile->join('keluarga', 'keluarga.id_user', '=', 'users.id_user');
+        $queryProfile  = $queryProfile->join('lain_lain', 'lain_lain.id_user', '=', 'users.id_user');
+        $queryProfile  = $queryProfile->where('users.id_user', '=', $id);
+        $resultProfile = $queryProfile->get()->first();
+
+        $queryPendidikanFormal = DB::table('pendidikan_formal')
+        ->where('id_user', '=', $id)
+        ->get();
+
+        $queryProdi = DB::table('prodi')
+        ->where('id_prodi', '=', Auth::user()->id_prodi)
+        ->get();
+
+        if (!$resultProfile) {
+            // $id_user = $id;
+            $queryProfile  = User::query();
+            $queryProfile  = $queryProfile->where('id_user', '=', $id);
+            $resultProfile = $queryProfile->get()->first();
+        }
+
+        $data['pendidikan_formal']  = $queryPendidikanFormal;
+        $data['profile']            = $resultProfile;
+        $data['prodi']              = $queryProdi[0];
+
+        // return $data;
+
+        return view('dosen.data_pribadi', $data);
 
     }
 

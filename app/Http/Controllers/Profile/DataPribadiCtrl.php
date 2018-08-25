@@ -13,6 +13,7 @@ use App\Models\MKepegawaian;
 use App\Models\MAlamatKontak;
 use App\Models\MKeluarga;
 use App\Models\MLainLain;
+use DB;
 
 use Illuminate\Support\Facades\Validator;
 
@@ -35,6 +36,14 @@ class DataPribadiCtrl extends Controller {
         $queryProfile  = $queryProfile->where('users.id_user', '=', $id_user);
         $resultProfile = $queryProfile->get()->first();
 
+        $queryPendidikanFormal = DB::table('pendidikan_formal')
+        ->where('id_user', '=', $id_user)
+        ->get();
+
+        $queryProdi = DB::table('prodi')
+        ->where('id_prodi', '=', Auth::user()->id_prodi)
+        ->get();
+
         if (!$resultProfile) {
         	$id_user = Auth::user()->id_user;
         	$queryProfile  = User::query();
@@ -42,7 +51,11 @@ class DataPribadiCtrl extends Controller {
         	$resultProfile = $queryProfile->get()->first();
         }
 
-       	$data['profile'] = $resultProfile;
+        $data['pendidikan_formal']  = $queryPendidikanFormal;
+       	$data['profile']            = $resultProfile;
+        $data['prodi']              = $queryProdi[0];
+
+        // return $data;
 
         return view('profile.data_pribadi', $data);
 
