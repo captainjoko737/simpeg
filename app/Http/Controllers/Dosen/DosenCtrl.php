@@ -77,16 +77,18 @@ class DosenCtrl extends Controller {
 
     public function Create(request $request) {
 
-        return $request->all();
+        // return $request->all();
 
         $fileName = time().'.'.$request->image_file->getClientOriginalExtension();
         $request['photo']    = $fileName;
 
         $password = bcrypt($request->password);
         $dataPribadi = [
+                    'id_prodi' => $request->id_prodi,
                     'username' => $request->username, 
                     'password' => $password,
-                    'password_readable' => $request->password, 
+                    'password_readable' => $request->password,
+                    'nama' => $request->nama, 
                     'jenis_kelamin' => $request->jenis_kelamin,
                     'tempat_lahir' => $request->tempat_lahir,
                     'tanggal_lahir' => $request->tanggal_lahir,
@@ -99,7 +101,7 @@ class DosenCtrl extends Controller {
 
         $id_user = DB::table('users')->insertGetId($dataPribadi);
 
-        $request->image_file->move(base_path().'/public/assets/bukti_fisik/', $fileName);
+        $request->image_file->move(base_path().'/public/assets/photo_profile/', $fileName);
 
         $kepegawaian = ['id_user' => $id_user, 
                         'nip' => $request->nip,
@@ -120,7 +122,7 @@ class DosenCtrl extends Controller {
                         'rw' => $request->rw,
                         'dusun' => $request->dusun,
                         'desa_kabupaten' => $request->desa_kabupaten,
-                        'kota_kabupaten' => $kota_kabupaten,
+                        'kota_kabupaten' => $request->kota_kabupaten,
                         'provinsi' => $request->provinsi, 
                         'kode_pos' => $request->kode_pos,
                         'no_telepon_rumah' => $request->no_telepon_rumah,
@@ -218,7 +220,7 @@ class DosenCtrl extends Controller {
 
                 if ($save) {
                     if ($request->image_file) {
-                        $request->image_file->move(base_path().'/public/assets/bukti_fisik/', $fileName);
+                        $request->image_file->move(base_path().'/public/assets/photo_profile/', $fileName);
                     }
                 }
             }else{

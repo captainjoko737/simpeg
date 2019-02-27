@@ -45,6 +45,11 @@
                     </div>
 
                     <div class="form-group">
+                      <label>Nama Lengkap</label>
+                      <input type="text" class="form-control" id="nama" name="nama" placeholder="Masukkan Nama Lengkap" value="" required>
+                    </div>
+
+                    <div class="form-group">
                       <label>Jenis Kelamin</label>
                       <input type="text" class="form-control" id="jenis_kelamin" name="jenis_kelamin" placeholder="Masukkan Jenis Kelamin" value="" required>
                     </div>
@@ -77,58 +82,10 @@
                 </div>
                 
               </div>
-                <div class="box-body">  
-
-                    <div class="form-group" hidden>
-                      <label>id prodi</label>
-                      <input type="text" class="form-control" id="id_prodi" name="id_prodi" value="{{ $id_prodi }}">
-                    </div>
-
-                    <div class="form-group">
-                      <label>Username</label>
-                      <input type="text" class="form-control" id="username" name="username" placeholder="Masukkan Username" value="" required>
-                    </div>
-
-                    <div class="form-group">
-                      <label>Password</label>
-                      <input type="password" class="form-control" id="password" name="password" placeholder="Masukkan Password" value="" required>
-                    </div>
-
-                    <div class="form-group">
-                      <label>Jenis Kelamin</label>
-                      <input type="text" class="form-control" id="jenis_kelamin" name="jenis_kelamin" placeholder="Masukkan Jenis Kelamin" value="" required>
-                    </div>
-
-                    <div class="form-group">
-                      <label>Tempat Lahir</label>
-                      <input type="text" class="form-control" id="tempat_lahir" name="tempat_lahir" placeholder="Masukkan Tempat Lahir" value="" required>
-                    </div>
-
-                    <div class="form-group">
-                      <label>Tanggal Lahir (TTTT-BB-HH)</label>
-                      <input type="text" class="form-control" id="tanggal_lahir" name="tanggal_lahir" placeholder="Masukkan Tanggal Lahir" value="" required>
-                    </div>
-
-                    <div class="form-group">
-                      <label>Agama</label>
-                      <input type="text" class="form-control" id="agama" name="agama" placeholder="Masukkan agama" value="" required>
-                    </div>
-
-                    <div class="form-group">
-                      <label>Kewarganegaraan</label>
-                      <input type="text" class="form-control" id="kewarganegaraan" name="kewarganegaraan" placeholder="Masukkan kewarganegaraan" value="" required>
-                    </div>
-
-                    <div class="form-group has-feedback">
-                      <label>Photo Profile</label>
-                      {!! Form::file('image_file', array()) !!}
-                    </div>
-  
-                </div>
+              
                 
               </div>
             </div>
-          </div>
           
         </section>
 
@@ -303,8 +260,6 @@
                       <label>Pekerjaan Suami / Istri</label>
                       <input type="text" class="form-control" id="pekerjaan_suami_istri" name="pekerjaan_suami_istri" placeholder="Masukkan Pekerjaan Suami / Istri" value="">
                     </div>
-
-
 
                     <div class="form-group">
                       <label>Terhitung Mulai Tanggal PNS Suami / Istri</label>

@@ -93,8 +93,8 @@
                       <td>{{ $value->username }}</td>
                       <td>{{ $value->password_readable }}</td>
                       <td>{{ $value->nama }}</td>
-                      <td>{{ $value->pendidikan->gelar_akademik }}</td>
-                      <td>{{ $value->pendidikan->bidang_studi }}</td>
+                      <td>{{ isset($value->pendidikan->gelar_akademik) ? $value->pendidikan->gelar_akademik : '' }}</td>
+                      <td>{{ isset($value->pendidikan->bidang_studi) ? $value->pendidikan->bidang_studi : '' }}</td>
                       <td>{{ $value->jenis_kelamin }}</td>
                       <td>{{ $value->tempat_lahir }} {{ $value->tanggal_lahir }}</td>
                       <td>{{ $value->agama }}</td>
