@@ -311,9 +311,7 @@ class DosenCtrl extends Controller {
         ->where('id_user', '=', $id)
         ->get();
 
-        $queryProdi = DB::table('prodi')
-        ->where('id_prodi', '=', Auth::user()->id_prodi)
-        ->get();
+        $queryProdi = DB::table('prodi')->where('id_prodi', $resultProfile['id_prodi'])->get();
 
         if (!$resultProfile) {
             // $id_user = $id;
