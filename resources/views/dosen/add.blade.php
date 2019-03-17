@@ -113,13 +113,13 @@
                     </div>
 
                     <div class="form-group">
-                      <label>Nomor SK CPNS</label>
-                      <input type="text" class="form-control" id="nomor_sk_cpns" name="nomor_sk_cpns" placeholder="Masukkan Nomor SK CPNS" value="">
+                      <label>Nomor SK Pengangkatan Sebagai Dosen</label>
+                      <input type="text" class="form-control" id="nomor_sk_cpns" name="nomor_sk_cpns" placeholder="Masukkan Nomor SK Pengangkatan Sebagai Dosen" value="">
                     </div>
 
                     <div class="form-group">
-                      <label>SK CPNS Terhitung Mulai Tanggal</label>
-                      <input type="text" class="form-control" id="sk_cpns_terhitung_mulai_tanggal" name="sk_cpns_terhitung_mulai_tanggal" placeholder="SK CPNS Terhitung Mulai Tanggal" value="">
+                      <label>Tanggal SK Pengangkatan Sebagai Dosen</label>
+                      <input type="text" class="form-control" id="sk_cpns_terhitung_mulai_tanggal" name="sk_cpns_terhitung_mulai_tanggal" placeholder="Tanggal SK Pengangkatan Sebagai Dosen" value="">
                     </div>
 
                     <div class="form-group">
@@ -164,11 +164,6 @@
                     </div>
 
                     <div class="form-group">
-                      <label>Nomor SK CPNS</label>
-                      <input type="text" class="form-control" id="alamat" name="alamat" placeholder="Masukkan alamat" value="">
-                    </div>
-
-                    <div class="form-group">
                       <label>RT</label>
                       <input type="text" class="form-control" id="rt" name="rt" placeholder="Masukkan RT" value="">
                     </div>
@@ -179,14 +174,7 @@
                     </div>
 
                     <div class="form-group">
-                      <label>Dusun</label>
-                      <input type="text" class="form-control" id="dusun" name="dusun" placeholder="Masukkan Dusun" value="">
-                    </div>
-
-
-
-                    <div class="form-group">
-                      <label>Desa / Kabupaten</label>
+                      <label>Desa / Kelurahan</label>
                       <input type="text" class="form-control" id="desa_kabupaten" name="desa_kabupaten" placeholder="Masukkan Desa / Kabupaten" value="">
                     </div>
 
@@ -252,18 +240,8 @@
                     </div>
 
                     <div class="form-group">
-                      <label>NIP Suami / Istri</label>
-                      <input type="text" class="form-control" id="nip_suami_istri" name="nip_suami_istri" placeholder="Masukkan NIP Suami / Istri" value="">
-                    </div>
-
-                    <div class="form-group">
                       <label>Pekerjaan Suami / Istri</label>
                       <input type="text" class="form-control" id="pekerjaan_suami_istri" name="pekerjaan_suami_istri" placeholder="Masukkan Pekerjaan Suami / Istri" value="">
-                    </div>
-
-                    <div class="form-group">
-                      <label>Terhitung Mulai Tanggal PNS Suami / Istri</label>
-                      <input type="text" class="form-control" id="terhitung_mulai_tanggal_pns_suami_istri" name="terhitung_mulai_tanggal_pns_suami_istri" placeholder="Masukkan Tanggal PNS Suami / Istri" value="">
                     </div>
 
                 </div>
