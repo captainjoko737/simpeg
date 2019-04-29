@@ -130,7 +130,7 @@
                   <tr>
                     <td>{{ $value->nim_mahasiswa }}</td>
                     <td class="text-center">{{ $value->nama_mahasiswa }}</td>
-                    <td class="text-center"><a href="{{ url('assets/bukti_fisik/').'/'.$value->bukti_fisik }}" target="_blank">{{ $value->bukti_fisik_desc }}</a></td>
+                    <td class="text-center"><a href="{{ url('/public/assets/bukti_fisik/').'/'.$value->bukti_fisik }}" target="_blank">{{ $value->bukti_fisik_desc }}</a></td>
                     <td class="text-center"><button class="btn btn-sm btn-info" onclick="edit({{ $value->id_mahasiswa_bimbingan }})"><i class="fa fa-pencil"></i> Edit</button> <button class="btn btn-sm btn-danger" onclick="ButtonDelete({{ $value->id_mahasiswa_bimbingan }})"><i class="fa fa-trash"></i> Delete</button></td></td>
                   </tr>
 

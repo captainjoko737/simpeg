@@ -74,7 +74,7 @@
                       <td class="text-center">{{ $value->volume_kegiatan }} </td>
                       <td class="text-center">{!! $value->angka_kredit !!}</td>
                       <td class="text-center">{!! $value->volume_kegiatan * $value->angka_kredit !!}</td>
-                      <td><a href="{{ url('assets/bukti_fisik/').'/'.$value->bukti_fisik }}" target="_blank">{!! $value->bukti_fisik_desc !!}</a> </td>
+                      <td><a href="{{ url('/public/assets/bukti_fisik/').'/'.$value->bukti_fisik }}" target="_blank">{!! $value->bukti_fisik_desc !!}</a> </td>
                       <td><button class="btn btn-sm btn-info" onclick="edit({{$value->id_jabatan_pimpinan}})"><i class="fa fa-pencil"></i></button> <button class="btn btn-sm btn-danger" onclick="ButtonDelete({{ $value->id_jabatan_pimpinan }})"><i class="fa fa-trash"></i></button></td>
                     </tr>
 

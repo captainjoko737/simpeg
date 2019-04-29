@@ -76,7 +76,7 @@
                         <td class="text-center">{!! $value['angka_kredit'] !!}</td>
                         <td class="text-center">{{ $value['masa_kerja_tahun'] }}</td>
                         <td class="text-center">{{ $value['masa_kerja_bulan'] }}</td>
-                        <td><a href="{{ url('assets/bukti_fisik/').'/'.$value->bukti_fisik }}" target="_blank">{{ $value->bukti_fisik_desc }}</a> </td>
+                        <td><a href="{{ url('/public/assets/bukti_fisik/').'/'.$value->bukti_fisik }}" target="_blank">{{ $value->bukti_fisik_desc }}</a> </td>
                         <td><button class="btn btn-sm btn-info" onclick="editKepangkatan({{$value['id_kepangkatan']}})"><i class="fa fa-pencil"></i> Edit</button> <button class="btn btn-sm btn-danger" onclick="ButtonDelete({{$value['id_kepangkatan']}})"><i class="fa fa-trash"></i> Delete</button></td>
                       </tr>
 

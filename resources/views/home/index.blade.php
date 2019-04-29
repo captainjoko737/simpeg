@@ -20,7 +20,7 @@
             <div class="inner">
               <h3>{{ $jumlah_fakultas }}</h3>
 
-              <p>Fakultas</p>
+              <p>Program Studi</p>
             </div>
             <div class="icon">
               <i class="fa fa-book"></i>

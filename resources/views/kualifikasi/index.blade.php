@@ -82,7 +82,7 @@
                         <td>{{ $value['tahun_lulus'] }}</td>
                         <td>{{ $value['tanggal_kelulusan'] }}</td>
 
-                      <td><a href="{{ url('assets/bukti_fisik/').'/'.$value['bukti_fisik'] }}" target="_blank">{!! $value['bukti_fisik_desc'] !!}</a> </td>
+                      <td><a href="{{ url('/public/assets/bukti_fisik/').'/'.$value['bukti_fisik'] }}" target="_blank">{!! $value['bukti_fisik_desc'] !!}</a> </td>
                         <td><button class="btn btn-sm btn-info" onclick="editPendidikanFormal({{$value['id_pendidikan_formal']}})"><i class="fa fa-pencil"></i></button> <button class="btn btn-sm btn-danger" onclick="ButtonDelete({{$value['id_pendidikan_formal']}})"><i class="fa fa-trash"></i></button></td>
                       </tr>
 

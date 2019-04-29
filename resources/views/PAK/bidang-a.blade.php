@@ -127,7 +127,7 @@
 			  	<td class="text-center">{{ $value->jumlah_sks }}</td>
 			  	<td class="text-center">{{ $value->angka_kredit }}</td>
 			  	<td class="text-center">{{ $value->angka_kredit }}</td>
-			  	<td><a href="{{ url('assets/bukti_fisik/').'/'.$value->bukti_fisik }}" target="_blank">{{ $value->bukti_fisik_desc }}</a></td>
+			  	<td><a href="{{ url('/public/assets/bukti_fisik/').'/'.$value->bukti_fisik }}" target="_blank">{{ $value->bukti_fisik_desc }}</a></td>
 			</tr>
 		@endif
 		
@@ -146,7 +146,7 @@
 			  	<td class="text-center">{{ $value->jumlah_sks }}</td>
 			  	<td class="text-center">{{ $value->angka_kredit }}</td>
 			  	<td class="text-center">{{ $value->angka_kredit }}</td>
-			  	<td><a href="{{ url('assets/bukti_fisik/').'/'.$value->bukti_fisik }}" target="_blank">{{ $value->bukti_fisik_desc }}</a></td>
+			  	<td><a href="{{ url('/public/assets/bukti_fisik/').'/'.$value->bukti_fisik }}" target="_blank">{{ $value->bukti_fisik_desc }}</a></td>
 			</tr>
 		@endif
 		
@@ -191,7 +191,7 @@
 			  	<td class="text-center">{{ $value->jumlah_sks }}</td>
 			  	<td class="text-center">{{ $value->angka_kredit }}</td>
 			  	<td class="text-center">{{ $value->angka_kredit }}</td>
-			  	<td><a href="{{ url('assets/bukti_fisik/').'/'.$value->bukti_fisik }}" target="_blank">{{ $value->bukti_fisik_desc }}</a></td>
+			  	<td><a href="{{ url('/public/assets/bukti_fisik/').'/'.$value->bukti_fisik }}" target="_blank">{{ $value->bukti_fisik_desc }}</a></td>
 			</tr>
 		@endif
 		
@@ -210,7 +210,7 @@
 			  	<td class="text-center">{{ $value->jumlah_sks }}</td>
 			  	<td class="text-center">{{ $value->angka_kredit }}</td>
 			  	<td class="text-center">{{ $value->angka_kredit }}</td>
-			  	<td><a href="{{ url('assets/bukti_fisik/').'/'.$value->bukti_fisik }}" target="_blank">{{ $value->bukti_fisik_desc }}</a></td>
+			  	<td><a href="{{ url('/public/assets/bukti_fisik/').'/'.$value->bukti_fisik }}" target="_blank">{{ $value->bukti_fisik_desc }}</a></td>
 			</tr>
 		@endif
 		
@@ -256,7 +256,7 @@
 			  	<td class="text-center">{{ $value->jumlah_sks }}</td>
 			  	<td class="text-center">{{ $value->angka_kredit }}</td>
 			  	<td class="text-center">{{ $value->angka_kredit }}</td>
-			  	<td><a href="{{ url('assets/bukti_fisik/').'/'.$value->bukti_fisik }}" target="_blank">{{ $value->bukti_fisik_desc }}</a></td>
+			  	<td><a href="{{ url('/public/assets/bukti_fisik/').'/'.$value->bukti_fisik }}" target="_blank">{{ $value->bukti_fisik_desc }}</a></td>
 			</tr>
 		@endif
 		
@@ -275,7 +275,7 @@
 			  	<td class="text-center">{{ $value->jumlah_sks }}</td>
 			  	<td class="text-center">{{ $value->angka_kredit }}</td>
 			  	<td class="text-center">{{ $value->angka_kredit }}</td>
-			  	<td><a href="{{ url('assets/bukti_fisik/').'/'.$value->bukti_fisik }}" target="_blank">{{ $value->bukti_fisik_desc }}</a></td>
+			  	<td><a href="{{ url('/public/assets/bukti_fisik/').'/'.$value->bukti_fisik }}" target="_blank">{{ $value->bukti_fisik_desc }}</a></td>
 			</tr>
 		@endif
 		
@@ -329,7 +329,7 @@
 				  	<td></td>
 				  	<td>{{ $values->nama_mahasiswa }}</td>
 				  	<td>{{ $values->nim_mahasiswa }}</td>
-				  	<td><a href="{{ url('assets/bukti_fisik/').'/'.$values->bukti_fisik }}" target="_blank">{{ $values->bukti_fisik_desc }}</a></td>
+				  	<td><a href="{{ url('/public/assets/bukti_fisik/').'/'.$values->bukti_fisik }}" target="_blank">{{ $values->bukti_fisik_desc }}</a></td>
 				</tr>
 			@endforeach
 		@endif
@@ -356,7 +356,7 @@
 				  	<td></td>
 				  	<td>{{ $values->nama_mahasiswa }}</td>
 				  	<td>{{ $values->nim_mahasiswa }}</td>
-				  	<td><a href="{{ url('assets/bukti_fisik/').'/'.$values->bukti_fisik }}" target="_blank">{{ $values->bukti_fisik_desc }}</a></td>
+				  	<td><a href="{{ url('/public/assets/bukti_fisik/').'/'.$values->bukti_fisik }}" target="_blank">{{ $values->bukti_fisik_desc }}</a></td>
 				</tr>
 			@endforeach
 			<th></th>
@@ -410,7 +410,7 @@
 				  	<td></td>
 				  	<td>{{ $values->nama_mahasiswa }}</td>
 				  	<td>{{ $values->nim_mahasiswa }}</td>
-				  	<td><a href="{{ url('assets/bukti_fisik/').'/'.$values->bukti_fisik }}" target="_blank">{{ $values->bukti_fisik_desc }}</a></td>
+				  	<td><a href="{{ url('/public/assets/bukti_fisik/').'/'.$values->bukti_fisik }}" target="_blank">{{ $values->bukti_fisik_desc }}</a></td>
 				</tr>
 			@endforeach
 		@endif
@@ -437,7 +437,7 @@
 				  	<td></td>
 				  	<td>{{ $values->nama_mahasiswa }}</td>
 				  	<td>{{ $values->nim_mahasiswa }}</td>
-				  	<td><a href="{{ url('assets/bukti_fisik/').'/'.$values->bukti_fisik }}" target="_blank">{{ $values->bukti_fisik_desc }}</a></td>
+				  	<td><a href="{{ url('/public/assets/bukti_fisik/').'/'.$values->bukti_fisik }}" target="_blank">{{ $values->bukti_fisik_desc }}</a></td>
 				</tr>
 			@endforeach
 			<th></th>
@@ -483,7 +483,7 @@
 			  	<td class="text-center">{{ $value->volume_kegiatan }}</td>
 			  	<td class="text-center">1</td>
 			  	<td class="text-center">1</td>
-			  	<td><a href="{{ url('assets/bukti_fisik/').'/'.$values->bukti_fisik }}" target="_blank">{{ $values->bukti_fisik_desc }}</a></td>
+			  	<td><a href="{{ url('/public/assets/bukti_fisik/').'/'.$values->bukti_fisik }}" target="_blank">{{ $values->bukti_fisik_desc }}</a></td>
 			</tr>
 		@endif
 	@endforeach
@@ -501,7 +501,7 @@
 			  	<td class="text-center">{{ $value->volume_kegiatan }}</td>
 			  	<td class="text-center">1</td>
 			  	<td class="text-center">1</td>
-			  	<td><a href="{{ url('assets/bukti_fisik/').'/'.$values->bukti_fisik }}" target="_blank">{{ $values->bukti_fisik_desc }}</a></td>
+			  	<td><a href="{{ url('/public/assets/bukti_fisik/').'/'.$values->bukti_fisik }}" target="_blank">{{ $values->bukti_fisik_desc }}</a></td>
 			</tr>
 			<th></th>
 			<th></th>
@@ -543,7 +543,7 @@
 			  	<td class="text-center">{{ $value->volume_kegiatan }}</td>
 			  	<td class="text-center">2</td>
 			  	<td class="text-center">{{ $value->volume_kegiatan * 2 }}</td>
-			  	<td><a href="{{ url('assets/bukti_fisik/').'/'.$values->bukti_fisik }}" target="_blank">{{ $values->bukti_fisik_desc }}</a></td>
+			  	<td><a href="{{ url('/public/assets/bukti_fisik/').'/'.$values->bukti_fisik }}" target="_blank">{{ $values->bukti_fisik_desc }}</a></td>
 			</tr>
 		
 	@endforeach
@@ -586,7 +586,7 @@
 			  	<td class="text-center">{{ $value->volume_kegiatan }}</td>
 			  	<td class="text-center">5</td>
 			  	<td class="text-center">{{ $value->volume_kegiatan * 5 }}</td>
-			  	<td><a href="{{ url('assets/bukti_fisik/').'/'.$values->bukti_fisik }}" target="_blank">{{ $values->bukti_fisik_desc }}</a></td>
+			  	<td><a href="{{ url('/public/assets/bukti_fisik/').'/'.$values->bukti_fisik }}" target="_blank">{{ $values->bukti_fisik_desc }}</a></td>
 			</tr>
 		
 	@endforeach
@@ -630,7 +630,7 @@
 			  	<td class="text-center">{{ $value->volume_kegiatan }}</td>
 			  	<td class="text-center">{{ $value->angka_kredit }}</td>
 			  	<td class="text-center">{{ $value->volume_kegiatan * $value->angka_kredit }}</td>
-			  	<td><a href="{{ url('assets/bukti_fisik/').'/'.$values->bukti_fisik }}" target="_blank">{{ $values->bukti_fisik_desc }}</a></td>
+			  	<td><a href="{{ url('/public/assets/bukti_fisik/').'/'.$values->bukti_fisik }}" target="_blank">{{ $values->bukti_fisik_desc }}</a></td>
 			</tr>
 		
 	@endforeach
@@ -675,7 +675,7 @@
 			  	<td class="text-center">{{ $value->volume_kegiatan }}</td>
 			  	<td class="text-center">{{ $value->angka_kredit }}</td>
 			  	<td class="text-center">{{ $value->volume_kegiatan * $value->angka_kredit }}</td>
-			  	<td><a href="{{ url('assets/bukti_fisik/').'/'.$values->bukti_fisik }}" target="_blank">{{ $values->bukti_fisik_desc }}</a></td>
+			  	<td><a href="{{ url('/public/assets/bukti_fisik/').'/'.$values->bukti_fisik }}" target="_blank">{{ $values->bukti_fisik_desc }}</a></td>
 			</tr>
 		
 	@endforeach

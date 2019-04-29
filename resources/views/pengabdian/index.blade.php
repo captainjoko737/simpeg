@@ -72,7 +72,7 @@
                         <td>{{ $value['nomor_sk_jabatan_struktural'] }} </td>
                         <td>{!! $value['terhitung_mulai_tanggal'] !!}</td>
                         <td>{!! $value['lokasi_penugasan'] !!}</td>
-                        <td><a href="{{ url('assets/bukti_fisik/').'/'.$value->bukti_fisik }}" target="_blank">{{ $value->bukti_fisik_desc }}</a> </td>
+                        <td><a href="{{ url('/public/assets/bukti_fisik/').'/'.$value->bukti_fisik }}" target="_blank">{{ $value->bukti_fisik_desc }}</a> </td>
                         <td><button class="btn btn-sm btn-info" onclick="editJabatanStruktural({{$value['id_jabatan_struktural']}})"><i class="fa fa-pencil"></i> </button> <button class="btn btn-sm btn-danger" onclick="ButtonDelete({{$value['id_jabatan_struktural']}})"><i class="fa fa-trash"></i> </button></td>
                       </tr>
 

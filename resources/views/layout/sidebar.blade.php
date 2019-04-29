@@ -6,7 +6,7 @@
       <!-- Sidebar user panel -->
       <div class="user-panel">
         <div class="image text-center">
-          <img src="{{ url('assets/image_assets/logo.png') }}" class="img-circle" alt="User Image">
+          <img src="{{ url('/public/assets/image_assets/logo.png') }}" class="img-circle" alt="User Image">
         </div>
         
       </div>

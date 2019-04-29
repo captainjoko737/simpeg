@@ -76,7 +76,7 @@
                       <td>{!! $value['kelebihan_penelitian'] !!}</td>
                       <td>{{ $value['kelebihan_pengabdian_masyarakat'] }}</td>
                       <td>{{ $value['kelebihan_kegiatan_penunjang'] }}</td>
-                      <td><a href="{{ url('assets/bukti_fisik/').'/'.$value->bukti_fisik }}" target="_blank">{{ $value->bukti_fisik_desc }}</a> </td>
+                      <td><a href="{{ url('/public/assets/bukti_fisik/').'/'.$value->bukti_fisik }}" target="_blank">{{ $value->bukti_fisik_desc }}</a> </td>
                       <td style="width : 15%"><button class="btn btn-sm btn-info" onclick="editJabatanFungsional({{$value['id_jabatan_fungsional']}})"><i class="fa fa-pencil"></i> Edit</button> <button class="btn btn-sm btn-danger" onclick="ButtonDelete({{$value['id_jabatan_fungsional']}})"><i class="fa fa-trash"></i> Delete</button></td>
                     </tr>
 

@@ -7,13 +7,13 @@
     <section class="content">
       <div class="login-box">
         <div class="login-logo">
-          <a href="{{ url() }}"><img src="{{ url('assets/image_assets/logo.png') }}" style="width: 200px;"></a>
+          <a href="{{ url() }}"><img src="{{ url('/public/assets/image_assets/logo.png') }}" style="width: 200px;"></a>
         </div>
         <!-- /.login-logo -->
         <div class="login-box-body">
           <p class="login-box-msg">Silahkan Login Ke Akun Anda</p>
 
-          <form action="/auth/login" method="post">
+          <form action="{{ route('login') }}" method="post">
             {!! csrf_field() !!}
             @if (count($errors) > 0)
               <div class="alert alert-danger">
@@ -53,6 +53,6 @@
 
 @section('js')
   <!-- Chart -->
-  <script src="{{ url('assets/bower_components/morris.js/morris.min.js') }}"></script>
+  <script src="{{ url('/public/assets/bower_components/morris.js/morris.min.js') }}"></script>
 
 @endsection

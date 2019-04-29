@@ -64,8 +64,8 @@
       }
   </style>
   <!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"> -->
-  <script src="{{ url('assets/bower_components/jquery/dist/jquery.min.js') }}"></script>
-  <script src="{{ url('assets/bower_components/bootstrap/dist/js/bootstrap.min.js') }}"></script>
+  <script src="{{ url('/public/assets/bower_components/jquery/dist/jquery.min.js') }}"></script>
+  <script src="{{ url('/public/assets/bower_components/bootstrap/dist/js/bootstrap.min.js') }}"></script>
 </head>
 <body>
 

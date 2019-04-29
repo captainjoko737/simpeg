@@ -86,7 +86,7 @@
                       <td>{{ $key + 1 }}</td>
                       <td>{{ $value->nama }}</td>
                       <td class="text-center">{{ $value->tahun }}</td>
-                      <td class="text-center"><a href="{{ url('assets/bukti_fisik/').'/'.$value->bukti_fisik }}" target="_blank">{{ $value->bukti_fisik_desc }} </a></td>
+                      <td class="text-center"><a href="{{ url('/public/assets/bukti_fisik/').'/'.$value->bukti_fisik }}" target="_blank">{{ $value->bukti_fisik_desc }} </a></td>
                       
                       <td class="text-center"> <button class="btn btn-sm btn-info" onclick="edit({{$value->id_bahan_pengajaran }})"><i class="fa fa-pencil"></i></button> <button class="btn btn-sm btn-danger" onclick="ButtonDelete({{ $value->id_bahan_pengajaran }})"><i class="fa fa-trash"></i></button></td>
                     </tr>

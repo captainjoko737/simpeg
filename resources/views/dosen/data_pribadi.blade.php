@@ -27,7 +27,7 @@
             <div class="box-body">
 
               <div class="box-body box-profile">
-                <img class="profile-user-img img-responsive img-circle" src="{{ url('assets/photo_profile/').'/'.$profile->photo }}" style="width:30%" >
+                <img class="profile-user-img img-responsive img-circle" src="{{ url('/public/assets/photo_profile/').'/'.$profile->photo }}" style="width:30%" >
               </div>
 
               <table class="table table-bordered table-striped">

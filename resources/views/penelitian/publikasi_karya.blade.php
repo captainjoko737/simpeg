@@ -21,6 +21,6 @@
 
 @section('js')
   <!-- Chart -->
-  <script src="{{ url('assets/bower_components/morris.js/morris.min.js') }}"></script>
+  <script src="{{ url('/public/assets/bower_components/morris.js/morris.min.js') }}"></script>
 
 @endsection
